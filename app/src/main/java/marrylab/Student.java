@@ -1,6 +1,12 @@
 /**
  * 生徒に関する情報を記憶。
  */
+
+package marryLab;
+
+import java.lang.String;
+import java.util.List;
+
 public class Student {
 
 	/**
@@ -30,34 +36,35 @@ public class Student {
 
 	/**
 	 * 学生証番号を応答する
-	 * @return 
+	 * @return 学生証番号
 	 */
 	public Integer getStudentNumber() {
-		return null;
+		return this.studentNumber;
 	}
 
 	/**
 	 * GPAを応答する
-	 * @return
+	 * @return GPA
 	 */
 	public Integer getGPA() {
-		return null;
+		return this.GPA;
 
 	}
 
 	/**
 	 * 選択コースを応答する
+	 * @return 選択コース
 	 */
-	public void getMyCourse() {
-
+	public List<String> getMyCourse() {
+		return this.myCourse;
 	}
 
 	/**
 	 * 研究室希望順位を応答する
-	 * @return
+	 * @return 研究室希望順位
 	 */
 	public List<Laboratory> labPreferences() {
-		return null;
+		return this.assignedLab;
 	}
 
 }
