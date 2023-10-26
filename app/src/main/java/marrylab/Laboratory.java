@@ -26,11 +26,41 @@ public class Laboratory {
 	private String labName;
 
 	/**
+	 * 学生の順位を持つリストを設定する
+	 * @param aStudentList
+	 */
+	public void setStudentRank(List<Student> aStudentList){
+		this.studentRank = aStudentList;		
+	}
+	/**
+	 * マッチング後の配属された生徒の情報を持つリストを設定する
+	 * @param aResult
+	 */
+	public void setResult(List<Student> aResult) {
+		this.result = aResult;
+	}
+
+	/**
+	 * コース名をキー、コース点をバリューに持つ辞書を設定する
+	 * @param aCoursePoint
+	 */
+	public void setCoursePoint(HashMap<String, integer> aCoursePoint) {
+		this.coursePoint = aCoursePoint;
+	}
+	/**
+	 * 研究室名を設定する
+	 * @param aLabName
+	 */
+	public void setString(String aLabName) {
+		this.labName = aLabName;
+	} 
+
+	/**
 	 * 研究室名を応答する
 	 * @return 研究室名
 	 */
 	public String getLabName() {
-		return null;
+		return this.labName;
 	}
 
 	/**
@@ -39,7 +69,7 @@ public class Laboratory {
 	 * @return コース点
 	 */
 	public Integer getCoursIntegerePoint(String aCourceName) {
-		return null;
+		return aCourcePoint.get(aCourceName);
 	}
 
 	/**
