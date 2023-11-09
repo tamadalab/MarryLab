@@ -43,27 +43,26 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 点数計算をするメソッド
 	 */
-	public Double calculateScore(HashMap<String, Integer> coursePoint, HashMap<Integer, Double> labScore) {
+	public Double calculateScore(HashMap<String, Double> coursePoint, HashMap<Integer, Double> labScore) {
 		return this.GPA*12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまる教員点を返すメソッド
 	 */
-	public Double serchCorsePoint(HashMap<String, Integer> coursePoint) {
-
+	public Double serchCorsePoint(HashMap<String, Double> coursePoint) {
 		//コースが合致して、その中で点数が一番高いコースを返す
-		List<Integer> alist = new ArrayList<Integer>();
-		for (String key : coursePoint.KeySet()) {
-            if (key.equals(myCourse)) {
-				Integer value = coursePoint.get(key);
-                alist.add(value);
-            }
-        }
-
+		List<Double> alist = new ArrayList<Double>();
+		for (String course : myCourse) {
+			Double value = coursePoint.get(course);
+			if (value != null) {
+				alist.add(value);
+			}
+		}
+	
 		Collections.sort(alist, Collections.reverseOrder());
-
-		return alist.get[0];
+	
+		return alist.isEmpty() ? null : alist.get(0);
 	}
 
 	/**
