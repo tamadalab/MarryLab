@@ -15,7 +15,7 @@ public class GaleShapleyMatching {
 /**
  * 学生を研究室に配属させるメソッドです。
  */
-	
+
 	public void add() {
 		
 	}
@@ -36,5 +36,7 @@ public class GaleShapleyMatching {
 	public boolean hasUnassignedStudents() {
 		return false;
 	}
+
+	
 
 }

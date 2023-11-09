@@ -25,4 +25,14 @@ public class Table {
 		this.laboratoryList = new HashMap<String, Laboratory>();
 		this.studentsList = new HashMap<Integer, Student>();
 	}
+
+	
+	public void addLaboratory(String key, Laboratory aLaboratory){
+		this.laboratoryList.put(key, aLaboratory);
+	}
+
+	public void addStudent(Integer key, Student student) {
+		this.studentsList.put(key, student);
+	}
+
 }
