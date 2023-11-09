@@ -1,10 +1,15 @@
 package marrylab;
 
+import marrylab.Table;
+
 /**
  * Gale-Shapleyのアルゴリズムによって、学生を研究室に配属させるクラスです。
  */
 public class GaleShapleyMatching {
 
+/**
+ * 表を保持するフィールドです。
+ */
 	private Table table;
 
 /**
@@ -28,7 +33,7 @@ public class GaleShapleyMatching {
  * 配属されていない学生がいるかをチェックするメソッド。
  * @return 未配属がいるかの真偽
  */
-	public Boolean hasUnassignedStudents() {
+	public boolean hasUnassignedStudents() {
 		return false;
 	}
 
