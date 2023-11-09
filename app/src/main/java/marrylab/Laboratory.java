@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import marrylab.Student;
 /**
@@ -58,13 +59,13 @@ public class Laboratory {
 	 * 研究室の最大配属人数を変更するメソッド
 	 */
 	public void updateCapacity() {
-
+		
 	}
 
 	/**
 	 * 生徒の希望順位を総合点をもとに並べ替える
 	 */
 	public void sortStudent() {
-
+		Collections.sort(studentList);
 	}
 }
