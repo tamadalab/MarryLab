@@ -1,11 +1,14 @@
 package marrylab;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * 
+ * 学生の情報を管理するクラス
  */
-public class Student {
+public class Student implements Comparable<Student> {
 
 	/**
 	 * 学生のIDを保持するフィールド
@@ -40,22 +43,46 @@ public class Student {
 	/**
 	 * 点数計算をするメソッド
 	 */
-	public Double calculateScore() {
-		return null;
+	public Double calculateScore(HashMap<String, Integer> coursePoint, HashMap<Integer, Double> labScore) {
+		return this.GPA*12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまる教員点を返すメソッド
 	 */
-	public Double serchCorsePoint() {
-		return null;
+	public Double serchCorsePoint(HashMap<String, Integer> coursePoint) {
+
+		//コースが合致して、その中で点数が一番高いコースを返す
+		List<Integer> alist = new ArrayList<Integer>();
+		for (String key : coursePoint.KeySet()) {
+            if (key.equals(myCourse)) {
+				Integer value = coursePoint.get(key);
+                alist.add(value);
+            }
+        }
+
+		Collections.sort(alist, Collections.reverseOrder());
+
+		return alist.get[0];
 	}
 
 	/**
 	 * 当てはまるコースを返すメソッド
 	 */
-	public Double serchLabScore() {
+	public Double serchLabScore(HashMap<Integer, Double> labScore) {
 		return null;
 	}
+
+ @Override
+	public int compareTo(Student other) {
+        // オブジェクトを比較し、比較結果を返すロジックを実装
+        if (this.GPA < other.GPA) {
+            return -1;
+        } else if (this.GPA > other.GPA) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
 }
