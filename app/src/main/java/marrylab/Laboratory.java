@@ -12,7 +12,8 @@ import marrylab.Student;
 public class Laboratory {
 
 	/**
-	 * 生徒の総合点を管理するマップを保持するフィールド
+	 * 生徒の総合点を管理するマップを保持するフィールド。
+	 * キー：生徒ID バリュー：総合点
 	 */
 	private HashMap<Integer, Double> studentPoint;
 
@@ -24,7 +25,7 @@ public class Laboratory {
 	/**
 	 * 研究室のコース点を保持するフィールド
 	 */
-	private HashMap<String, Integer> coursePoint;
+	private HashMap<String, Double> coursePoint;
 
 	/**
 	 * 研究室名を保持するフィールド
@@ -41,13 +42,16 @@ public class Laboratory {
 	 */
 	private Integer capacity;
 
-	private Student student;
-
 	/**
 	 * 研究室のコンストラクタ
 	 */
-	public void Laboratory(){
-
+	public Laboratory(){
+		this.studentPoint = new HashMap<>();
+		this.studentList = new ArrayList<>();
+		this.coursePoint = new HashMap<>();
+		this.labScore = new HashMap<>();
+		this.capacity = 0;
+		this.name = "";
 	}
 
 	/**
