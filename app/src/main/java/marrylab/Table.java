@@ -47,14 +47,22 @@ public class Table {
 	 * 研究室の最大配属人数を計算する
 	 */
 	public void calculateCapacity(){
-		
+		for (Laboratory lab : this.laboratoryList.values()) {
+			lab.updateCapacity(this.getQuotientOfStudentsAndLabs());
+		}
+	
+		for (int i = 0; i < this.getRemainderOfStudentsAndLabs(); i++) {
+			String labName = this.firstLabRank.get(i);
+			Laboratory lab = this.laboratoryList.get(labName);
+			lab.updateCapacity(1);
+		}
 	}
 
 	/**
 	 * 生徒の数を研究室数で割った商を応答
 	 * @return　商
 	 */
-	public int getQuotientOfStudentsAndLabs() {
+	public Integer getQuotientOfStudentsAndLabs() {
 		return this.studentsList.size() / this.laboratoryList.size();
 	}
 	

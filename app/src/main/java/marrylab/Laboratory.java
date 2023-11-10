@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import marrylab.Student;
 /**
  * 研究室に関する情報を管理するクラス
  */
@@ -16,7 +15,7 @@ public class Laboratory {
 	 * 生徒の総合点を管理するマップを保持するフィールド。
 	 * キー：生徒ID バリュー：総合点
 	 */
-	private HashMap<Integer, Double> studentPoint;
+	private Map<Integer, Double> studentPoint;
 
 	/**
 	 * 生徒の希望順位を保持するフィールド
@@ -26,7 +25,7 @@ public class Laboratory {
 	/**
 	 * 研究室のコース点を保持するフィールド
 	 */
-	private HashMap<String, Double> coursePoint;
+	private Map<String, Double> coursePoint;
 
 	/**
 	 * 研究室名を保持するフィールド
@@ -58,8 +57,8 @@ public class Laboratory {
 	/**
 	 * 研究室の最大配属人数を変更するメソッド
 	 */
-	public void updateCapacity() {
-		
+	public void updateCapacity(Integer capacity) {
+		this.capacity += capacity;
 	}
 
 	/**
