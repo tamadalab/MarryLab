@@ -12,6 +12,7 @@ public class GaleShapleyMatching {
 	 */
 	private Table table;
 
+
 	public GaleShapleyMatching(Table table) {
 		this.table = table;
 
@@ -41,5 +42,7 @@ public class GaleShapleyMatching {
 	public boolean hasUnassignedStudents() {
 		return false;
 	}
+
+	
 
 }
