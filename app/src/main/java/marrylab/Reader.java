@@ -5,5 +5,4 @@ public class Reader extends IO {
         super(table, filePass);
     }
 
-    
 }

@@ -1,7 +1,5 @@
 package marrylab;
 
-import marrylab.Table;
-
 /**
  * CSVの入出力を司るクラスです。
  */
