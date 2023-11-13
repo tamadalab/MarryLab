@@ -48,7 +48,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * 当てはまる教員点を返すメソッド
+	 * 当てはまるコース点を返すメソッド
 	 */
 	public Double serchCorsePoint(HashMap<String, Double> coursePoint) {
 		//コースが合致して、その中で点数が一番高いコースを返す
@@ -66,13 +66,13 @@ public class Student implements Comparable<Student> {
 	}
 
 	/**
-	 * 当てはまるコースを返すメソッド
+	 * 当てはまる教員点を返すメソッド
 	 */
 	public Double serchLabScore(HashMap<Integer, Double> labScore) {
-		return null;
+		return labScore.get(this.studentNumber);
 	}
 
- @Override
+@Override
 	public int compareTo(Student other) {
         // オブジェクトを比較し、比較結果を返すロジックを実装
         if (this.GPA < other.GPA) {
