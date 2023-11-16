@@ -1,0 +1,143 @@
+ -----
+ FAQ
+ -----
+ Koji Sugisawa
+ -----
+ 2014/01/23
+ -----
+
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+FAQ
+
+ [[1]] {{バイナリファイルはどこからダウンロード可能ですか？}}
+
+ [[2]] {{文字コードの指定は可能ですか？}}
+
+ [[3]] {{どの CsvManager や CsvHandler、Reader / Writer を使えば良いですか？}}
+
+ [[4]] {{ヘッダー出力を抑制したい}}
+
+ [[5]] {{項目数チェックをしたい}}
+
+ [[6]] {{項目値チェックをしたい}}
+
+ [[7]] {{CSV / XML 変換}}
+
+ [[8]] {{CSV / JSON 変換}}
+
+ [[9]] {{CSV / JPA 変換・その他}}
+
+=====================
+
+*{バイナリファイルはどこからダウンロード可能ですか？}
+
+ {{{http://search.maven.org/#search%7Cga%7C1%7Corangesignal-csv}Maven Central}} で提供していますので、{{{http://maven.apache.org/}Maven}} などの依存性解決ツールからのご使用をお願いします。\
+ 依存性解決ツールのご使用ができない場合は、{{{http://search.maven.org/#search%7Cga%7C1%7Corangesignal-csv}Maven Central}} より直接バイナリをダウンロードしてご使用下さい。
+
+*{文字コードの指定は可能ですか？}
+
+ 可能です。\
+ CSV 入出力のファイルやストリーム指定時に encoding パラメータで指定して下さい。
+
++-----------------------------------------------------------------------------+
+[Code]
+
+List<String[]> list = Csv.load(new File("example.csv"), "Windows-31J", new CsvConfig(), new StringArrayListHandler());
++-----------------------------------------------------------------------------+
+
+ ファイルやストリームではなく Reader や Writer を使用する場合は、\
+ Reader または Writer クラスのインスタンス生成時に文字コードの指定をして下さい。
+
+
+
+*{どの CsvManager や CsvHandler、Reader / Writer を使えば良いですか？}
+
+ 迷ったらまずは {{{./apidocs/com/orangesignal/csv/manager/CsvEntityManager.html}CsvEntityManager}} から使い始めてみて下さい。\
+ また {{{./io_tables.html}方式比較表}} も参考にしてみて下さい。
+
+*{ヘッダー出力を抑制したい}
+
+ {{{./apidocs/com/orangesignal/csv/annotation/CsvEntity.html}@CsvEntity}} で「header = false」とすることで、対応する {{{./apidocs/com/orangesignal/csv/io/CsvEntityWriter.html}CsvEntityWriter}} や {{{./apidocs/com/orangesignal/csv/manager/CsvEntityManager.html}CsvEntityManager}} 使用時に、ヘッダーの出力をしないようにできます。\
+ また他の CsvManager や BeanListHandler、CsvBeanWriter などで header オプションを指定することで同様にヘッダーの出力をしないようにできます。
+
+*{項目数チェックをしたい}
+
+ {{{./apidocs/com/orangesignal/csv/CsvConfig.html}CsvConfig}} で {{{./apidocs/com/orangesignal/csv/CsvConfig.html#setVariableColumns(boolean)}setVariableColumns(false)}} を指定して下さい。\
+ 項目数が不正な場合に CsvReader や CsvWriter から例外がスローされるようになります。\
+ ※{{{./apidocs/com/orangesignal/csv/CsvConfig.html#setVariableColumns(boolean)}setVariableColumns}} は、バージョン 2.1 以上で使用可能です。
+
+
++-----------------------------------------------------------------------------+
+[Code]
+
+CsvConfig cfg = new CsvConfig();
+cfg.setVariableColumns(false);
++-----------------------------------------------------------------------------+
+
+*{項目値チェックをしたい}
+
+ {{{http://hibernate.org/validator/}Hibernate Validator}} など Java の {{{http://beanvalidation.org/}Bean Validation}} をご使用下さい。\
+ 以下に例を掲載します。
+
++-----------------------------------------------------------------------------+
+[pom.xml]
+
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-validator</artifactId>
+    <version>5.0.2.Final</version>
+</dependency>
++-----------------------------------------------------------------------------+
+
++-----------------------------------------------------------------------------+
+[Code]
+
+@CsvEntity
+public class Customer {
+
+    @NotNull
+    @CsvColumn(name = "氏名")
+    public String name;
+
+    @Past
+    @CsvColumn(name = "生年月日", format = "yyyy/MM/dd")
+    public Date birthday;
+
+}
+
+public class ExampleTests {
+    @Test
+    public void test throws Exception {
+        // Validator を構成します。
+        final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        final Validator validator = validatorFactory.getValidator();
+
+        // CSV を読込んで検証処理を行います。
+        final List<Customer> list = new CsvEntityManager().load(Customer.class).from(new File("customer.csv"));
+        for (final Customer customer : list) {
+            final Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+            // TODO: ここに処理を記述します。
+        }
+    }
+}
++-----------------------------------------------------------------------------+
+
+*{CSV / XML 変換}
+
+ 以下の二段階の手順で変換して下さい。(XML から CSV への変換の場合は逆の手順となります)
+
+ * {{{./apidocs/com/orangesignal/csv/manager/CsvEntityManager.html}CsvEntityManager}} など OrangeSignal CSV の機能で CSV から POJO へ変換します。
+
+ * JAXB などの O/X マッパーにて POJO から XML へ変換します。\
+ O/X マッパーの詳細や選定などについては、{{{http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#oxm}Spring Framework - Marshalling XML using O/X Mappers}} をご覧ください。
+
+*{CSV / JSON 変換}
+
+  {CSV / XML 変換} と同様の考え方で、CSV ⇒ POJO ⇒ JSON へ変換する手順となります。\
+  POJO から JSON へ変換する、JSON マッパーの詳細や選定などについては、 {{{http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#rest-client-access}Spring Framework - Accessing RESTful services on the Client}} をご覧ください。
+
+*{CSV / JPA 変換・その他}
+
+  {CSV / XML 変換} や {CSV / JSON 変換} と同様です。\
+  {{{http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/}Spring Framework Reference Documentation}} をご覧ください。

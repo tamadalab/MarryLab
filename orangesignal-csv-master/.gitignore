@@ -1,0 +1,27 @@
+# Java Files
+*.class
+*.jar
+
+# Maven Files
+/target
+target/*
+core/target/*
+legacy/target/*
+
+cobertura.ser
+
+# MacOS Files
+.DS_Store
+
+# Eclipse Files #
+.project
+.classpath
+org.eclipse.*.prefs
+*/.settings/*
+
+# IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea
+atlassian-ide-plugin.xml

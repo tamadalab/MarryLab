@@ -12,7 +12,7 @@ import marrylab.Table;
 /**
  * CSVの入出力を司るクラスです。
  */
-public abstract class IO {
+public class IO {
 
 	/**
 	 * 表を保持するフィールドです。
