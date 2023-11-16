@@ -12,11 +12,13 @@ public class GaleShapleyMatching {
 	 */
 	private Table table;
 
+
 	public GaleShapleyMatching(Table table) {
 		this.table = table;
 
 		return;
-	}
+  }
+
 
 	/**
 	 * 学生を研究室に配属させるメソッドです。
@@ -41,5 +43,7 @@ public class GaleShapleyMatching {
 	public boolean hasUnassignedStudents() {
 		return false;
 	}
+
+	
 
 }
