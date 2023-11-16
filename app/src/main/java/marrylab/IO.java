@@ -1,9 +1,9 @@
 package marrylab;
 
-import com.orangesignal.csv;
+import com.orangesignal.csv.*;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 import marrylab.Student;
@@ -33,8 +33,6 @@ public class IO {
 	 * @param filePass
 	 */
 	public IO(Table table, String filePass) {
-		super();
-
 		this.table = table;
 		this.filePass = filePass;
 		this.list = new ArrayList<String[]>();
