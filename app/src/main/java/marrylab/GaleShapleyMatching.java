@@ -4,8 +4,8 @@ package marrylab;
  * Gale-Shapleyのアルゴリズムによって、学生を研究室に配属させるクラスです。
  */
 public class GaleShapleyMatching {
-
-    /**
+   
+	/**
     * 表を保持するフィールドです。
     */
 	private Table table;
@@ -30,9 +30,8 @@ public class GaleShapleyMatching {
 	 * 学生を研究室に配属させるメソッドです。
 	 */
 	public void add() {
-		
+		this.table.add();
 	}
-
 
 
 	/**

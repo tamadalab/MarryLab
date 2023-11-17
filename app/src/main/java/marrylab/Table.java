@@ -95,4 +95,13 @@ public class Table {
 			laboratoryList.get(student.getCurrentLabRank()).addStudent(student);
 		});
 	}
+
+	/**
+	 * 研究室に所属されている、溢れた生徒を除名させる。
+	 */
+	public void remove(){
+		laboratoryList.forEach((key, laboratory) -> {
+			// 研究室クラスのremoveを実行→消された生徒の情報を未配属にする
+		});
+	}
 }
