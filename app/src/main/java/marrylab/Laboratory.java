@@ -55,6 +55,14 @@ public class Laboratory {
 	}
 
 	/**
+	 * 生徒を配属リストに追加する
+	 * @param newStudent　生徒のインスタンス
+	 */
+	public void addStudent(Student newStudent){
+		
+	}
+
+	/**
 	 * 研究室の最大配属人数を変更するメソッド
 	 */
 	public void updateCapacity(Integer capacity) {

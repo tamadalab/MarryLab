@@ -25,6 +25,7 @@ public class Table {
 	 */
 	private List<String> firstLabRank;
 
+
 	/**
 	 * コンストラクタ
 	 */
@@ -35,10 +36,21 @@ public class Table {
 	}
 
 	
+	/**
+	 * 研究室の情報を追加する
+	 * @param key　研究室名
+	 * @param aLaboratory Labのインスタンス
+	 */
 	public void addLaboratory(String key, Laboratory aLaboratory){
 		this.laboratoryList.put(key, aLaboratory);
 	}
 
+
+	/**
+	 * 生徒の情報を追加する
+	 * @param key　生徒ID
+	 * @param student 生徒のインスタンス
+	 */
 	public void addStudent(Integer key, Student student) {
 		this.studentsList.put(key, student);
 	}
@@ -72,5 +84,24 @@ public class Table {
 	 */
 	public int getRemainderOfStudentsAndLabs() {
 		return this.studentsList.size() % this.laboratoryList.size();
+	}
+
+	/**
+	 * 生徒を研究室に配属させる
+	 */
+	public void add(){
+		studentsList.forEach((key, student) -> {
+			
+			laboratoryList.get(student.getCurrentLabRank()).addStudent(student);
+		});
+	}
+
+	/**
+	 * 研究室に所属されている、溢れた生徒を除名させる。
+	 */
+	public void remove(){
+		laboratoryList.forEach((key, laboratory) -> {
+			// 研究室クラスのremoveを実行→消された生徒の情報を未配属にする
+		});
 	}
 }
