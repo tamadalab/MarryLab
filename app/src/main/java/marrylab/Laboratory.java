@@ -63,6 +63,16 @@ public class Laboratory {
 	}
 
 	/**
+	 * 配属済の生徒を並べ替え、溢れた生徒を除名
+	 * 除名した生徒が持つIDをまとめて応答する。
+	 * @return
+	 */
+	public List<Integer> removeStudent(){
+		List<Integer> removedStudentsList = new ArrayList<Integer>();
+		return removedStudentsList;
+	}
+
+	/**
 	 * 研究室の最大配属人数を変更するメソッド
 	 */
 	public void updateCapacity(Integer capacity) {
