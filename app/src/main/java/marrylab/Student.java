@@ -40,6 +40,15 @@ public class Student implements Comparable<Student> {
 	 */
 	private String name;
 
+	private int currentIndex;
+
+	/**
+	 * コンストラクタ
+	 */
+	public Student(){
+
+	}
+
 	/**
 	 * 点数計算をするメソッド
 	 */
@@ -70,6 +79,22 @@ public class Student implements Comparable<Student> {
 	 */
 	public Double serchLabScore(HashMap<Integer, Double> labScore) {
 		return labScore.get(this.studentNumber);
+	}
+
+	/**
+	 * 現在希望している研究室名を応答する。
+	 * @return 研究室名
+	 */
+	public String getCurrentLabRank(){
+		return null;
+	}
+
+	/**
+	 * 現在の希望順位を応答する
+	 * @return　現在の希望順位
+	 */
+	public int currentIndex(){
+		return 0;
 	}
 
 @Override

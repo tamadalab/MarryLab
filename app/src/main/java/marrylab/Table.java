@@ -25,6 +25,7 @@ public class Table {
 	 */
 	private List<String> firstLabRank;
 
+
 	/**
 	 * コンストラクタ
 	 */
@@ -83,5 +84,15 @@ public class Table {
 	 */
 	public int getRemainderOfStudentsAndLabs() {
 		return this.studentsList.size() % this.laboratoryList.size();
+	}
+
+	/**
+	 * 生徒を研究室に配属させる
+	 */
+	public void add(){
+		studentsList.forEach((key, student) -> {
+			
+			laboratoryList.get(student.getCurrentLabRank()).addStudent(student);
+		});
 	}
 }
