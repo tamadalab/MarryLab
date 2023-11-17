@@ -35,10 +35,21 @@ public class Table {
 	}
 
 	
+	/**
+	 * 研究室の情報を追加する
+	 * @param key　研究室名
+	 * @param aLaboratory Labのインスタンス
+	 */
 	public void addLaboratory(String key, Laboratory aLaboratory){
 		this.laboratoryList.put(key, aLaboratory);
 	}
 
+
+	/**
+	 * 生徒の情報を追加する
+	 * @param key　生徒ID
+	 * @param student 生徒のインスタンス
+	 */
 	public void addStudent(Integer key, Student student) {
 		this.studentsList.put(key, student);
 	}
