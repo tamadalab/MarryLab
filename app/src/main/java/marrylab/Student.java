@@ -40,7 +40,15 @@ public class Student implements Comparable<Student> {
 	 */
 	private String name;
 
+	/**
+	 * 配属願いを出す番号を保持する。
+	 */
 	private int currentIndex;
+
+	/**
+	 * 自身が配属済かどうかを示す。
+	 */
+	private boolean isAssigned;
 
 	/**
 	 * コンストラクタ
@@ -95,6 +103,21 @@ public class Student implements Comparable<Student> {
 	 */
 	public int currentIndex(){
 		return 0;
+	}
+
+	/**
+	 * 生徒自身を未配属に変更する。
+	 */
+	public void unAssign(){
+
+	}
+
+	/**
+	 * 現在配属済かどうかを応答する。
+	 * @return　配属済ならtrue
+	 */
+	public boolean isAssigned(){
+		return this.isAssigned;
 	}
 
 @Override

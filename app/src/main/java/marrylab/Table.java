@@ -86,22 +86,21 @@ public class Table {
 		return this.studentsList.size() % this.laboratoryList.size();
 	}
 
-	/**
-	 * 生徒を研究室に配属させる
-	 */
-	public void add(){
-		studentsList.forEach((key, student) -> {
-			
-			laboratoryList.get(student.getCurrentLabRank()).addStudent(student);
-		});
+	public Map<Integer, Student> studentMap(){
+		return this.studentsList;
 	}
 
+	public Map<String, Laboratory> laboratoryMap(){
+		return this.laboratoryList;
+	}
+	
 	/**
-	 * 研究室に所属されている、溢れた生徒を除名させる。
+	 * 生徒全員が配属済かどうかを応答する。
+	 * 配属済ならば、trueを返す
+	 * @return 真偽値
 	 */
-	public void remove(){
-		laboratoryList.forEach((key, laboratory) -> {
-			// 研究室クラスのremoveを実行→消された生徒の情報を未配属にする
-		});
+	public boolean hasUnassignedStudents(){
+		return this.studentsList.values().stream()
+		                        .allMatch(Student::isAssigned);
 	}
 }
