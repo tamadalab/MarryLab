@@ -85,4 +85,8 @@ public class Laboratory {
 	public void sortStudent() {
 		Collections.sort(studentList);
 	}
+
+	public String name(){
+		return this.name;
+	}
 }
