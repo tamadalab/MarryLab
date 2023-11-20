@@ -1,9 +1,12 @@
 package marrylab;
 
-import com.orangesignal.csv.*;
+import com.orangesignal.csv.Csv;
+import com.orangesignal.csv.CsvConfig;
+import com.orangesignal.csv.handlers.StringArrayListHandler;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import marrylab.Student;
@@ -40,8 +43,33 @@ public class IO {
 		return;
 	}
 
-	public void CSVtoList(){
-		List<String[]> list = Csv.load(new File(this.filePass), new CsvConfig(), new StringArrayListHandler());
+	/**
+	 * CSVファイルからリストに変換するメソッドです。
+	 */
+	public List<String[]> CSVtoList() {
+		try {
+			this.list = Csv.load(new File(this.filePass), 
+								 new CsvConfig(), new StringArrayListHandler());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
+		return this.list;
+	}
+	
+	/**
+	 * リストからCSVファイルに変換するメソッドです。
+	 * @param list 振り分けた結果が入っているリスト
+	 * @param filePass 出力したいCSVファイルのパス
+	 */
+	public void ListtoCSV(List<String[]> list, String filePass) {
+		try {
+			Csv.save(list, new File(filePass), new CsvConfig(), new StringArrayListHandler());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return;
 	}
 }
+

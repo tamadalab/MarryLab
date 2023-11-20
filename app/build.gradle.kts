@@ -26,7 +26,6 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.orangesignal/orangesignal-csv
 	implementation("com.orangesignal:orangesignal-csv:2.2.1")
-
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
