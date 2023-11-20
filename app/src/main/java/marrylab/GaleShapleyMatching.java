@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * Gale-Shapleyのアルゴリズムによって、学生を研究室に配属させるクラスです。
  */
 public class GaleShapleyMatching {
-   
 	/**
     * 表を保持するフィールドです。
     */
@@ -41,7 +40,6 @@ public class GaleShapleyMatching {
 			laboratoryMap.get(student.getCurrentLabRank()).addStudent(student);
 		});
 	}
-
 
 	/**
 	 * 学生を除名するメソッドです。
