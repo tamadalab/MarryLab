@@ -94,7 +94,7 @@ public class Student implements Comparable<Student> {
 	 * @return 研究室名
 	 */
 	public String getCurrentLabRank(){
-		return null;
+		return this.labRank.get(currentIndex).name();
 	}
 
 	/**
@@ -102,14 +102,24 @@ public class Student implements Comparable<Student> {
 	 * @return　現在の希望順位
 	 */
 	public int currentIndex(){
-		return 0;
+		return currentIndex;
 	}
 
 	/**
 	 * 生徒自身を未配属に変更する。
 	 */
 	public void unAssign(){
+		this.result = null;
+		this.isAssigned = false;
+		currentIndex++;
+	}
 
+	/**
+	 * 配属済みに変更する。
+	 * @return
+	 */
+	public void assign(){
+		this.isAssigned = true;
 	}
 
 	/**
