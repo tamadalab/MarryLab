@@ -25,6 +25,7 @@ public class Table {
 	 */
 	private List<String> firstLabRank;
 
+
 	/**
 	 * コンストラクタ
 	 */
@@ -35,10 +36,21 @@ public class Table {
 	}
 
 	
+	/**
+	 * 研究室の情報を追加する
+	 * @param key　研究室名
+	 * @param aLaboratory Labのインスタンス
+	 */
 	public void addLaboratory(String key, Laboratory aLaboratory){
 		this.laboratoryList.put(key, aLaboratory);
 	}
 
+
+	/**
+	 * 生徒の情報を追加する
+	 * @param key　生徒ID
+	 * @param student 生徒のインスタンス
+	 */
 	public void addStudent(Integer key, Student student) {
 		this.studentsList.put(key, student);
 	}
@@ -72,5 +84,23 @@ public class Table {
 	 */
 	public int getRemainderOfStudentsAndLabs() {
 		return this.studentsList.size() % this.laboratoryList.size();
+	}
+
+	public Map<Integer, Student> studentMap(){
+		return this.studentsList;
+	}
+
+	public Map<String, Laboratory> laboratoryMap(){
+		return this.laboratoryList;
+	}
+	
+	/**
+	 * 生徒全員が配属済かどうかを応答する。
+	 * 配属済ならば、trueを返す
+	 * @return 真偽値
+	 */
+	public boolean hasUnassignedStudents(){
+		return this.studentsList.values().stream()
+		                        .allMatch(Student::isAssigned);
 	}
 }

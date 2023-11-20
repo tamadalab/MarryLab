@@ -41,6 +41,23 @@ public class Student implements Comparable<Student> {
 	private String name;
 
 	/**
+	 * 配属願いを出す番号を保持する。
+	 */
+	private int currentIndex;
+
+	/**
+	 * 自身が配属済かどうかを示す。
+	 */
+	private boolean isAssigned;
+
+	/**
+	 * コンストラクタ
+	 */
+	public Student(){
+
+	}
+
+	/**
 	 * 点数計算をするメソッド
 	 */
 	public Double calculateScore(HashMap<String, Double> coursePoint, HashMap<Integer, Double> labScore) {
@@ -70,6 +87,47 @@ public class Student implements Comparable<Student> {
 	 */
 	public Double serchLabScore(HashMap<Integer, Double> labScore) {
 		return labScore.get(this.studentNumber);
+	}
+
+	/**
+	 * 現在希望している研究室名を応答する。
+	 * @return 研究室名
+	 */
+	public String getCurrentLabRank(){
+		return this.labRank.get(currentIndex).name();
+	}
+
+	/**
+	 * 現在の希望順位を応答する
+	 * @return　現在の希望順位
+	 */
+	public int currentIndex(){
+		return currentIndex;
+	}
+
+	/**
+	 * 生徒自身を未配属に変更する。
+	 */
+	public void unAssign(){
+		this.result = null;
+		this.isAssigned = false;
+		currentIndex++;
+	}
+
+	/**
+	 * 配属済みに変更する。
+	 * @return
+	 */
+	public void assign(){
+		this.isAssigned = true;
+	}
+
+	/**
+	 * 現在配属済かどうかを応答する。
+	 * @return　配属済ならtrue
+	 */
+	public boolean isAssigned(){
+		return this.isAssigned;
 	}
 
 @Override
