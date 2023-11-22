@@ -33,7 +33,7 @@ public class Laboratory {
 	private String name;
 
 	/**
-	 * 学生ごとに付与される教員展を保持するフィールド
+	 * 学生ごとに付与される教員点を保持するフィールド
 	 */
 	private HashMap<Integer, Double> labScore;
 
@@ -59,13 +59,13 @@ public class Laboratory {
 	 * @param newStudent　生徒のインスタンス
 	 */
 	public void addStudent(Student newStudent){
-		
+		studentList.add(newStudent);
 	}
 
 	/**
 	 * 配属済の生徒を並べ替え、溢れた生徒を除名
 	 * 除名した生徒が持つIDをまとめて応答する。
-	 * @return
+	 * @return 除名された生徒のIDリスト
 	 */
 	public List<Integer> removeStudent(){
 		List<Integer> removedStudentsList = new ArrayList<Integer>();
