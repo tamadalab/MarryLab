@@ -86,6 +86,10 @@ public class Laboratory {
 		Collections.sort(studentList);
 	}
 
+	/**
+	 * 研究室名を応答する。
+	 * @return 研究室名
+	 */
 	public String name(){
 		return this.name;
 	}
