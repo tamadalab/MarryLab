@@ -53,8 +53,9 @@ public class Student implements Comparable<Student> {
 	/**
 	 * コンストラクタ
 	 */
-	public Student(){
-
+	public Student(String name, Double GPA){
+		this.name = name;
+		this.GPA = GPA;
 	}
 
 	/**

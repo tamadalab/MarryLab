@@ -9,9 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import marrylab.Student;
-import marrylab.Table;
-
 /**
  * CSVの入出力を司るクラスです。
  */
@@ -20,14 +17,15 @@ public class IO {
 	/**
 	 * 表を保持するフィールドです。
 	 */
-	private Table table;
+	protected Table table;
 
 	/**
 	 * ファイルパスを保持するフィールドです。
 	 */
-	private String filePass;
+	protected String filePass;
 
-	private List<String[]> list;
+
+	protected List<String[]> list;
 
 	/**
 	 * コンストラクタ：初期値を設定しておく。
@@ -39,16 +37,15 @@ public class IO {
 		this.table = table;
 		this.filePass = filePass;
 		this.list = new ArrayList<String[]>();
-
 		return;
 	}
 
 	/**
 	 * CSVファイルからリストに変換するメソッドです。
 	 */
-	public List<String[]> CSVtoList() {
+	public List<String[]> CSVtoList(String filePass) {
 		try {
-			this.list = Csv.load(new File(this.filePass), 
+			this.list = Csv.load(new File(filePass), 
 								 new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
