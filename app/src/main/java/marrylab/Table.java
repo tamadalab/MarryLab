@@ -72,7 +72,7 @@ public class Table {
 
 	/**
 	 * 生徒の数を研究室数で割った商を応答
-	 * @return　商
+	 * @return 商
 	 */
 	public Integer getQuotientOfStudentsAndLabs() {
 		return this.studentsList.size() / this.laboratoryList.size();
