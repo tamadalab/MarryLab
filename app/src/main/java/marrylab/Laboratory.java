@@ -68,8 +68,9 @@ public class Laboratory {
 	 * @return 除名された生徒のIDリスト
 	 */
 	public List<Integer> removeStudent(Integer capacity){
+		this.sortStudent();
 		List<Integer> removedStudentsList = new ArrayList<Integer>();
-		while (studentList[capacity] == null){
+		while (studentList[capacity] == null) {
 			removedStudentsList.add(studentList[capacity]);
 			studentList.remove(capacity);
 		}
