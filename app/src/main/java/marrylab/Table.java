@@ -103,4 +103,18 @@ public class Table {
 		return this.studentsList.values().stream()
 		                        .allMatch(Student::isAssigned);
 	}
+
+	/**
+	 * 配属結果を出力用のリストにして応答する
+	 * @return 配属結果
+	 */
+	public List<String[]> result(){
+		List<String[]> resultList = new ArrayList<String[]>();
+		studentsList.forEach((ID, student) -> {
+			// ID,生徒名,研究室名をStringの配列にしてListに入れる
+			String[] result = {ID.toString(), student.name(), student.resultLaboratory().name()};
+			resultList.add(result);
+		});
+		return resultList;
+	}
 }

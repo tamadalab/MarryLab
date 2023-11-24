@@ -131,6 +131,22 @@ public class Student implements Comparable<Student> {
 		return this.isAssigned;
 	}
 
+	/**
+	 * 生徒の名前を応答する
+	 * @return　生徒の名前
+	 */
+	public String name(){
+		return this.name;
+	}
+
+	/**
+	 * 配属された研究室を応答する
+	 * @return 配属研究室
+	 */
+	public Laboratory resultLaboratory(){
+		return this.result;
+	}
+
 @Override
 	public int compareTo(Student other) {
         // オブジェクトを比較し、比較結果を返すロジックを実装
