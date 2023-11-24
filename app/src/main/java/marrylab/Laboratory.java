@@ -67,11 +67,11 @@ public class Laboratory {
 	 * 除名した生徒が持つIDをまとめて応答する。
 	 * @return 除名された生徒のIDリスト
 	 */
-	public List<Integer> removeStudent(Integer capacity){
-		studentList = this.sortStudent();
+	public List<Integer> removeStudent(){
+		this.sortStudent();
 		List<Integer> removedStudentsList = new ArrayList<Integer>();
-		while (studentList[capacity] == null) {
-			removedStudentsList.add(studentList[capacity]);
+		while (studentList.get(capacity) == null) {
+			removedStudentsList.add(studentList.get(capacity));
 			studentList.remove(capacity);
 		}
 		return removedStudentsList;
