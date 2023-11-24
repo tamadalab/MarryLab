@@ -7,6 +7,10 @@ public class Writer extends IO {
         super(table, filePass);
     }
 
+	public void run(){
+		
+	}
+
 	/**
 	 * CSVファイルを書き出すメソッドです。
 	 * @param list 振り分けた結果が入っているリスト

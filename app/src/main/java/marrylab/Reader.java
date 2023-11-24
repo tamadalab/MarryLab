@@ -7,6 +7,10 @@ public class Reader extends IO {
 		super(table, filePath);
 	}
 
+	public void run(){
+		
+	}
+
 
 	/**
 	 * 学業成績.xlsxを読み込み、履修可能な生徒のみStudentのインスタンスを作成する。
