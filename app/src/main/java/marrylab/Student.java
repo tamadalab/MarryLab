@@ -23,7 +23,7 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 学生の選択コースを保持するフィールド
 	 */
-	private List<String> myCourse;
+	private List<Integer> myCourse;
 
 	/**
 	 * 学生の研究室希望順位を保持するフィールド
@@ -167,7 +167,7 @@ public class Student implements Comparable<Student> {
 		return this.GPA;
 	}
 
-	public List<String> myCourse(){
+	public List<Integer> myCourse(){
 		return this.myCourse;
 	}
 
@@ -179,6 +179,9 @@ public class Student implements Comparable<Student> {
 		return this.result;
 	}
 
-
-
+	public void setCourse(String course1, String course2, String course3){
+        this.myCourse.add(Integer.parseInt(course1.split(":")[0], 10));
+		this.myCourse.add(Integer.parseInt(course2.split(":")[0], 10));
+		this.myCourse.add(Integer.parseInt(course3.split(":")[0], 10));
+	}
 }
