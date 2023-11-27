@@ -23,7 +23,7 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 学生の選択コースを保持するフィールド
 	 */
-	private List<String> myCourse;
+	private List<Integer> myCourse;
 
 	/**
 	 * 学生の研究室希望順位を保持するフィールド
@@ -61,17 +61,17 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 点数計算をするメソッド
 	 */
-	public Double calculateScore(HashMap<String, Double> coursePoint, HashMap<Integer, Double> labScore) {
+	public Double calculateScore(HashMap<Integer, Double> coursePoint, HashMap<Integer, Double> labScore) {
 		return this.GPA*12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまるコース点を返すメソッド
 	 */
-	public Double serchCorsePoint(HashMap<String, Double> coursePoint) {
+	public Double serchCorsePoint(HashMap<Integer, Double> coursePoint) {
 		//コースが合致して、その中で点数が一番高いコースを返す
 		List<Double> alist = new ArrayList<Double>();
-		for (String course : myCourse) {
+		for (Integer course : myCourse) {
 			Double value = coursePoint.get(course);
 			if (value != null) {
 				alist.add(value);
@@ -167,7 +167,7 @@ public class Student implements Comparable<Student> {
 		return this.GPA;
 	}
 
-	public List<String> myCourse(){
+	public List<Integer> myCourse(){
 		return this.myCourse;
 	}
 
@@ -179,6 +179,9 @@ public class Student implements Comparable<Student> {
 		return this.result;
 	}
 
-
-
+	public void setCourse(String course1, String course2, String course3){
+        this.myCourse.add(Integer.parseInt(course1.split(":")[0], 10));
+		this.myCourse.add(Integer.parseInt(course2.split(":")[0], 10));
+		this.myCourse.add(Integer.parseInt(course3.split(":")[0], 10));
+	}
 }
