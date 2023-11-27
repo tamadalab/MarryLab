@@ -159,4 +159,26 @@ public class Student implements Comparable<Student> {
         }
     }
 
+	public Integer studentNumber(){
+		return this.studentNumber;
+	}
+
+	public Double GPA(){
+		return this.GPA;
+	}
+
+	public List<String> myCourse(){
+		return this.myCourse;
+	}
+
+	public List<Laboratory> labRank(){
+		return this.labRank;
+	}
+
+	public Laboratory result(){
+		return this.result;
+	}
+
+
+
 }
