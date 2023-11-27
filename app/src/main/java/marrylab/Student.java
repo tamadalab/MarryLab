@@ -68,10 +68,10 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 当てはまるコース点を返すメソッド
 	 */
-	public Double serchCorsePoint(HashMap<String, Double> coursePoint) {
+	public Double serchCorsePoint(HashMap<Integer, Double> coursePoint) {
 		//コースが合致して、その中で点数が一番高いコースを返す
 		List<Double> alist = new ArrayList<Double>();
-		for (String course : myCourse) {
+		for (Integer course : myCourse) {
 			Double value = coursePoint.get(course);
 			if (value != null) {
 				alist.add(value);
