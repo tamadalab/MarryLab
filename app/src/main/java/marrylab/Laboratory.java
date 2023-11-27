@@ -71,7 +71,8 @@ public class Laboratory {
 		this.sortStudent();
 		List<Integer> removedStudentsList = new ArrayList<Integer>();
 		while (studentList.get(capacity) == null) {
-			removedStudentsList.add(studentList.get(capacity));
+			Student removedStudent = studentList.get(capacity);
+			removedStudentsList.add(removedStudent);
 			studentList.remove(capacity);
 		}
 		return removedStudentsList;
