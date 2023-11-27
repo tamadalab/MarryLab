@@ -1,10 +1,12 @@
 package marrylab;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * 研究室に関する情報を管理するクラス
@@ -25,7 +27,7 @@ public class Laboratory {
 	/**
 	 * 研究室のコース点を保持するフィールド
 	 */
-	private Map<String, Double> coursePoint;
+	private Map<Integer, Double> coursePoint;
 
 	/**
 	 * 研究室名を保持するフィールド
@@ -83,6 +85,12 @@ public class Laboratory {
 	 * 生徒の希望順位を総合点をもとに並べ替える
 	 */
 	public void sortStudent() {
+		// GPAでしか並べ替えできない状態。
+		/*this.studentList = this.studentList.stream()
+		.sorted(Comparator.comparing(student -> student.calculateScore(this.coursePoint, this.labScore)))
+		.collect(Collectors.toList());*/
+	
+
 		Collections.sort(studentList);
 	}
 
@@ -92,5 +100,32 @@ public class Laboratory {
 	 */
 	public String name(){
 		return this.name;
+	}
+
+	public Map<Integer, Double> studentPoint(){
+		return this.studentPoint;
+	}
+
+	public List<Student> studentList(){
+		return this.studentList;
+	}
+
+	public Map<Integer, Double> coursePoint(){
+		return this.coursePoint;
+	}
+
+	public HashMap<Integer, Double> labScore(){
+		return this.labScore;
+	}
+
+	/**
+	 * コース点の設定を行う
+	 * @param coursePoint
+	 */
+	public void setCoursePoint(List<Integer> coursePoint){
+		for (int i = 0; i < coursePoint.size(); i++) {
+			// インデックスを1オリジンに変換し、リストの要素をDoubleに変換してMapに格納
+			this.coursePoint.put(i + 1, coursePoint.get(i).doubleValue());
+		}
 	}
 }
