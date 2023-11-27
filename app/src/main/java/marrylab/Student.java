@@ -61,7 +61,7 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 点数計算をするメソッド
 	 */
-	public Double calculateScore(HashMap<String, Double> coursePoint, HashMap<Integer, Double> labScore) {
+	public Double calculateScore(HashMap<Integer, Double> coursePoint, HashMap<Integer, Double> labScore) {
 		return this.GPA*12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
 	}
 
