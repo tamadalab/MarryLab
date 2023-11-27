@@ -1,13 +1,16 @@
 package marrylab;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Reader extends IO {
     public Reader(Table table, String filePath) {
 		super(table, filePath);
 	}
 
-	public void run(){
+	public void run() {
 		
 	}
 
@@ -42,8 +45,15 @@ public class Reader extends IO {
 	 * 生徒ID,氏名,第一希望,第二希望,第三希望
 	 * @param filePath
 	 */
-	public void readStudentCorce(String filePath){
-
+	public void readStudentCourse(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
+			try {
+				Integer studentID = Integer.parseInt(column[0]);
+				this.table.studentMap().get(studentID).setCourse(column[2],column[3],column[4]);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -51,8 +61,22 @@ public class Reader extends IO {
 	 * 研究室名,各コースの点数,...
 	 * @param filePath
 	 */
-	public void readCoursePoint(String filePath){
-
+	public void readCoursePoint(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
+			try {
+				String name = column[0];
+				// コース点を整数型に変換し、リストに追加
+				List<Integer> coursePoint = Arrays.stream(column)
+				.skip(1)
+				.map(point -> {
+					return Integer.parseInt(point);
+				})
+				.collect(Collectors.toList());
+				this.table.laboratoryMap().get(name).setCoursePoint(coursePoint);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -61,7 +85,7 @@ public class Reader extends IO {
 	 * 研究室ごとにファイルが存在する。
 	 * @param filePath
 	 */
-	public void readLabScore(String filePath){
+	public void readLabScore(String labName, String filePath) {
 
 	}
 
@@ -71,7 +95,7 @@ public class Reader extends IO {
 	 * 生徒によって複数回答ある場合があるので、受験完了日時が最新の情報を参照する。
 	 * @param filePath
 	 */
-	public void readLabRank(String filePath){
+	public void readLabRank(String filePath) {
 
 	}
 	
