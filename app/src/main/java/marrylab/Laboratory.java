@@ -53,7 +53,7 @@ public class Laboratory {
 		this.coursePoint = new HashMap<>();
 		this.labScore = new HashMap<>();
 		this.capacity = 0;
-		this.name = "";
+		this.name = name;
 	}
 
 	/**
