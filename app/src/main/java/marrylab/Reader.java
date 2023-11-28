@@ -2,16 +2,30 @@ package marrylab;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Reader extends IO {
+	/**
+	 * 教員点の情報をもつファイルへのパスを保持するMap
+	 * キー：研究室名、バリュー：教員点の情報が書かれたファイルへのパス
+	 */
+	private Map<String, String> labScoreMap;
+
     public Reader(Table table, String filePath) {
 		super(table, filePath);
+		this.labScoreMap = new HashMap<>();
 	}
 
 	public void run() {
-		
+		this.readStudentGPA("data/学業成績(情理)_2023.xlsx");
+		this.readStudentCourse("data/コース選択.xlsx");
+		this.readLabScoreMap("data/教員点ファイルパス.csv");
+		this.readCoursePoint("data/20230308 コース点.csv");
+		this.readLabScore();
+		this.readLabRank("data/研究室配属希望調査_2023.csv");
 	}
 
 
@@ -57,6 +71,21 @@ public class Reader extends IO {
 	}
 
 	/**
+	 * 教員点ファイルパス.csvを読み込み、フィールドのlabScoreMapに保存する。
+	 * 研究室名,LabSvcoreのファイルパス
+	 * @param filePath
+	 */
+	public void readLabScoreMap(String filePath){
+		this.CSVtoList(filePath).forEach((column) -> {
+			try {
+				this.labScoreMap.put(column[0], column[1]);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/**
 	 * コース点.csvを読み込み、コース点をLabratoryにそれぞれ保持させる。
 	 * 研究室名,各コースの点数,...
 	 * @param filePath
@@ -76,6 +105,18 @@ public class Reader extends IO {
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
+		});
+	}
+
+	/**
+	 * labのインスタンスを作成し、Lab_Score.csvを研究室ごとに読み込む。
+	 */
+	public void readLabScore(){
+		this.labScoreMap.forEach((labName, filePath) -> {
+			// Labのインスタンスを作成
+			this.table.laboratoryMap().put(labName, new Laboratory(labName));
+			// 実際にファイルを読み込む
+			this.readLabScore(filePath);
 		});
 	}
 

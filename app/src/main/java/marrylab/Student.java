@@ -147,6 +147,14 @@ public class Student implements Comparable<Student> {
 		return this.result;
 	}
 
+	/**
+	 * 第一希望の研究室を応答する
+	 * @return 第一希望の研究室
+	 */
+	public Laboratory firstLabRank(){
+		return this.labRank.get(0);
+	}
+
 @Override
 	public int compareTo(Student other) {
         // オブジェクトを比較し、比較結果を返すロジックを実装
