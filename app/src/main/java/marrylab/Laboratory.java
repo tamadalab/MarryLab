@@ -47,7 +47,7 @@ public class Laboratory {
 	/**
 	 * 研究室のコンストラクタ
 	 */
-	public Laboratory(){
+	public Laboratory(String name){
 		this.studentPoint = new HashMap<>();
 		this.studentList = new ArrayList<>();
 		this.coursePoint = new HashMap<>();
