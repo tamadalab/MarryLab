@@ -128,4 +128,12 @@ public class Laboratory {
 			this.coursePoint.put(i + 1, coursePoint.get(i).doubleValue());
 		}
 	}
+	
+	/**
+	 * 教員点の設定を行う
+	 * @param labScore 教員点
+	 */
+	public void setLabScore(Double labScore) {
+
+	}
 }
