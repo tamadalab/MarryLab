@@ -2,6 +2,7 @@ package marrylab;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -62,12 +63,28 @@ public class Table {
 		for (Laboratory lab : this.laboratoryList.values()) {
 			lab.updateCapacity(this.getQuotientOfStudentsAndLabs());
 		}
-	
-		for (int i = 0; i < this.getRemainderOfStudentsAndLabs(); i++) {
-			String labName = this.firstLabRank.get(i);
-			Laboratory lab = this.laboratoryList.get(labName);
-			lab.updateCapacity(1);
-		}
+		// 余りのぶんだけ人気の研究室順でcapacityを＋１する。
+		this.storeFirstLabRank().stream()
+            .limit(this.getRemainderOfStudentsAndLabs())
+            .forEach(labname -> {
+                this.laboratoryList.get(labname).updateCapacity(1);
+            });
+	}
+
+	/**
+	 * 第一希望が多い順に研究室を並べ替えたリストを応答する
+	 * @return ソートされた研究室名のリスト
+	 */
+	public List<String> storeFirstLabRank(){
+		Map<String, Integer> labCounts = new HashMap<>();
+		this.studentsList.forEach((ID, student) -> {
+			labCounts.merge(student.firstLabRank().name(), 1, Integer::sum);
+		});
+		List<String> sortedLabs = labCounts.entrySet().stream()
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+		return sortedLabs;
 	}
 
 	/**
@@ -86,10 +103,18 @@ public class Table {
 		return this.studentsList.size() % this.laboratoryList.size();
 	}
 
+	/**
+	 * 生徒のマップを応答する
+	 * @return 生徒情報
+	 */
 	public Map<Integer, Student> studentMap(){
 		return this.studentsList;
 	}
 
+	/**
+	 * 研究室のマップを応答する
+	 * @return 研究室情報
+	 */
 	public Map<String, Laboratory> laboratoryMap(){
 		return this.laboratoryList;
 	}
