@@ -131,9 +131,10 @@ public class Laboratory {
 	
 	/**
 	 * 教員点の設定を行う
+	 * @param studentID 生徒ID
 	 * @param labScore 教員点
 	 */
-	public void setLabScore(Double labScore) {
+	public void setLabScore(Integer studentID, Double labScore) {
 
 	}
 }
