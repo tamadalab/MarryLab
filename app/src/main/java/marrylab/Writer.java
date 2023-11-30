@@ -1,14 +1,15 @@
 package marrylab;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Writer extends IO {
-    public Writer(Table table, String filePass) {
-        super(table, filePass);
+    public Writer(Table table, String filePath) {
+        super(table, filePath);
     }
 
 	public void run(){
-		
+		this.write(this.table.result(), "");
 	}
 
 	/**
@@ -16,7 +17,7 @@ public class Writer extends IO {
 	 * @param list 振り分けた結果が入っているリスト
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
-	public void write(ArrayList<String[]> list, String filepass) {
+	public void write(List<String[]> list, String filepath) {
 		this.ListtoCSV(list,filepass);
 	}
 }
