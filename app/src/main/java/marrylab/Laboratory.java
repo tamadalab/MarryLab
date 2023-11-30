@@ -89,8 +89,12 @@ public class Laboratory {
 	 * 生徒の希望順位を総合点をもとに並べ替える
 	 */
 	public void sortStudent() {
-		// GPAでしか並べ替えできない状態。
-		Collections.sort(studentList);
+		studentList.sort((s1, s2) -> {
+            double score1 = s1.calculateScore(this.coursePoint, this.labScore);
+            double score2 = s2.calculateScore(this.coursePoint, this.labScore);
+            return Double.compare(score2, score1); // 高いスコア順にソート
+        });
+		//Collections.sort(studentList);
 	}
 
 	/**
