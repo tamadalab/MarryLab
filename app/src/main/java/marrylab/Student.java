@@ -3,6 +3,7 @@ package marrylab;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 /**
@@ -61,14 +62,14 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 点数計算をするメソッド
 	 */
-	public Double calculateScore(HashMap<Integer, Double> coursePoint, HashMap<Integer, Double> labScore) {
+	public Double calculateScore(Map<Integer, Double> coursePoint, Map<Integer, Double> labScore) {
 		return this.GPA*12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまるコース点を返すメソッド
 	 */
-	public Double serchCorsePoint(HashMap<Integer, Double> coursePoint) {
+	public Double serchCorsePoint(Map<Integer, Double> coursePoint) {
 		//コースが合致して、その中で点数が一番高いコースを返す
 		List<Double> alist = new ArrayList<Double>();
 		for (Integer course : myCourse) {
@@ -86,7 +87,7 @@ public class Student implements Comparable<Student> {
 	/**
 	 * 当てはまる教員点を返すメソッド
 	 */
-	public Double serchLabScore(HashMap<Integer, Double> labScore) {
+	public Double serchLabScore(Map<Integer, Double> labScore) {
 		return labScore.get(this.studentNumber);
 	}
 
@@ -191,5 +192,9 @@ public class Student implements Comparable<Student> {
         this.myCourse.add(Integer.parseInt(course1.split(":")[0], 10));
 		this.myCourse.add(Integer.parseInt(course2.split(":")[0], 10));
 		this.myCourse.add(Integer.parseInt(course3.split(":")[0], 10));
+	}
+
+	public void setLabRank(List<Laboratory> labRank){
+		this.labRank = labRank;
 	}
 }
