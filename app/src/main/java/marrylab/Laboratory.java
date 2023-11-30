@@ -70,7 +70,11 @@ public class Laboratory {
 	 * @return 除名された生徒のIDリスト
 	 */
 	public List<Integer> removeStudent(){
+		this.sortStudent();
 		List<Integer> removedStudentsList = new ArrayList<Integer>();
+		while (studentList.size() > this.capacity) {
+            removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+        }
 		return removedStudentsList;
 	}
 
@@ -86,11 +90,6 @@ public class Laboratory {
 	 */
 	public void sortStudent() {
 		// GPAでしか並べ替えできない状態。
-		/*this.studentList = this.studentList.stream()
-		.sorted(Comparator.comparing(student -> student.calculateScore(this.coursePoint, this.labScore)))
-		.collect(Collectors.toList());*/
-	
-
 		Collections.sort(studentList);
 	}
 
