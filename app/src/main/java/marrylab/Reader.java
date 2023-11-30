@@ -129,9 +129,9 @@ public class Reader extends IO {
 	public void readLabScore(String labName, String filePath) {
 		this.CSVtoList(filePath).forEach((labScoreColumn) -> {
 			try {
-				String studentID = labScoreColumn[0]; // labratoryMap()のキーはString型で受けるので、これはString型
+				Integer studentID = Integer.parseInt(labScoreColumn[0]);
 				Double labScore = Double.parseDouble(labScoreColumn[2]);
-				this.table.laboratoryMap().get(labName).setLabScore(labScore);
+				this.table.laboratoryMap().get(labName).setLabScore(studentID, labScore);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
