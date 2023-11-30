@@ -24,7 +24,6 @@ public class IO {
 	 */
 	protected String filePass;
 
-
 	protected List<String[]> list;
 
 	/**
@@ -44,19 +43,21 @@ public class IO {
 	 * CSVファイルからリストに変換するメソッドです。
 	 */
 	public List<String[]> CSVtoList(String filePass) {
+		List<String[]> resultList = new ArrayList<String[]>();
 		try {
-			this.list = Csv.load(new File(filePass), 
-								 new CsvConfig(), new StringArrayListHandler());
+			resultList = Csv.load(new File(filePass),
+					new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return this.list;
+		resultList.remove(0);
+		return resultList;
 	}
-	
+
 	/**
 	 * リストからCSVファイルに変換するメソッドです。
-	 * @param list 振り分けた結果が入っているリスト
+	 * 
+	 * @param list     振り分けた結果が入っているリスト
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
 	public void ListtoCSV(List<String[]> list, String filePass) {
@@ -69,4 +70,3 @@ public class IO {
 		return;
 	}
 }
-

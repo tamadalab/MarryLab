@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("marrylab.App")
+    mainClass.set("marrylab.Example")
 }
 
 tasks.named<Test>("test") {

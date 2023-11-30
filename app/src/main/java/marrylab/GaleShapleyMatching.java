@@ -2,33 +2,36 @@ package marrylab;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.base.Objects;
+
 import java.util.List;
 import java.util.ArrayList;
-
 
 /**
  * Gale-Shapleyのアルゴリズムによって、学生を研究室に配属させるクラスです。
  */
 public class GaleShapleyMatching {
 	/**
-    * 表を保持するフィールドです。
-    */
+	 * 表を保持するフィールドです。
+	 */
 	private Table table;
 
-
-	public GaleShapleyMatching(Table table){
+	public GaleShapleyMatching(Table table) {
 		this.table = table;
 	}
 
 	/**
 	 * マッチングアルゴリズムを実行します。
 	 */
-	public void run(){
+	public void run() {
 
 		while (true) {
 			this.add(this.table.laboratoryMap(), this.table.studentMap());
 			this.remove(this.table.laboratoryMap(), this.table.studentMap());
-			if(this.table.hasUnassignedStudents()) { break; }
+			if (this.table.hasUnassignedStudents()) {
+				break;
+			}
 		}
 	}
 
@@ -37,7 +40,9 @@ public class GaleShapleyMatching {
 	 */
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		studentMap.forEach((key, student) -> {
-			laboratoryMap.get(student.getCurrentLabRank()).addStudent(student);
+			if (!Objects.equal(laboratoryMap.get(student.getCurrentLabRank()), null)) {
+				laboratoryMap.get(student.getCurrentLabRank()).addStudent(student);
+			}
 		});
 	}
 
