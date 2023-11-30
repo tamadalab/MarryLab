@@ -116,7 +116,7 @@ public class Reader extends IO {
 			// Labのインスタンスを作成
 			this.table.laboratoryMap().put(labName, new Laboratory(labName));
 			// 実際にファイルを読み込む
-			this.readLabScore(filePath);
+			this.readLabScore(labName ,filePath);
 		});
 	}
 

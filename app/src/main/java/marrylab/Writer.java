@@ -18,6 +18,6 @@ public class Writer extends IO {
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
 	public void write(List<String[]> list, String filepath) {
-		this.ListtoCSV(list,filepass);
+		this.ListtoCSV(list,filepath);
 	}
 }
