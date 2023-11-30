@@ -145,7 +145,20 @@ public class Reader extends IO {
 	 * @param filePath
 	 */
 	public void readLabRank(String filePath) {
-
+		this.CSVtoList(filePath).forEach((column) -> {
+			try {
+				List<Laboratory> labRank = new ArrayList<Laboratory>();
+				Integer studentID = Integer.parseInt(column[0]);
+				String[] labNameList = column[7].replaceAll("^\\{|\\}$", "")
+											.split("} \\{");
+				for(String labName : labNameList) {
+					labRank.add(this.table.laboratoryMap().get(labName));
+				}
+				this.table.studentMap().get(studentID).setLabRank(labRank);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 	
 }
