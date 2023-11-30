@@ -90,9 +90,6 @@ public class Laboratory {
 	 */
 	public void sortStudent() {
 		// GPAでしか並べ替えできない状態。
-		this.studentList = this.studentList.stream()
-		.sorted(Comparator.comparing(student -> student.calculateScore(this.coursePoint, this.labScore)))
-		.collect(Collectors.toList());
 		Collections.sort(studentList);
 	}
 
