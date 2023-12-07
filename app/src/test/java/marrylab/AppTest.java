@@ -6,9 +6,44 @@ package marrylab;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.util.List;
+
 /*class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }*/
+
+class ReaderTest {
+	@Test
+	public void testReader() throws IOException {
+		Reader aReader = new Reader(null, null);
+		String input = "./src/main/resources/data/20230308 コース点.csv";
+		List<String[]> expectedData = List.of(
+			new String[] {"4","2","3","2","1","2","1","1","5","6"},
+			new String[] {"2","1","6","0","3","1","0","0","1","1"}
+		);
+		List<String[]> actualData = aReader.CSVtoList(input);
+		assertEquals(expectedData, actualData);
+	}
+}
+
+/**
+ * AppTest
+ */
+class WriteTest { 
+	@Test
+	public void testWriter() throws IOException {
+		Writer aWriter = new Writer(null, null);
+		String testFile = "test.csv";
+		List<String[]> testData = List.of(
+			new String[] {"4","2","3","2","1","2","1","1","5","6"},
+			new String[] {"2","1","6","0","3","1","0","0","1","1"}
+		);
+		aWriter.ListtoCSV(testData, testFile);
+		List<String[]> actualData = aWriter.CSVtoList(testFile);
+		assertEquals(testData, actualData);
+	}
+}
