@@ -19,11 +19,11 @@ import java.util.List;
 class ReaderTest {
 	@Test
 	public void testReader() throws IOException {
-		Reader aReader = new Reader(null, null);
-		String input = "./src/main/resources/data/20230308 コース点.csv";
+		Reader aReader = new Reader(new Table(), null);
+		String input = "readerTest.csv";
 		List<String[]> expectedData = List.of(
-			new String[] {"4","2","3","2","1","2","1","1","5","6"},
-			new String[] {"2","1","6","0","3","1","0","0","1","1"}
+			new String[] {"青木研","4","2","3","2","1","2","1","1","5","6"},
+			new String[] {"赤岩研","2","1","6","0","3","1","0","0","1","1"}
 		);
 		List<String[]> actualData = aReader.CSVtoList(input);
 		assertEquals(expectedData, actualData);
@@ -36,11 +36,11 @@ class ReaderTest {
 class WriteTest { 
 	@Test
 	public void testWriter() throws IOException {
-		Writer aWriter = new Writer(null, null);
-		String testFile = "test.csv";
+		Writer aWriter = new Writer(new Table(), null);
+		String testFile = "writerTest.csv";
 		List<String[]> testData = List.of(
-			new String[] {"4","2","3","2","1","2","1","1","5","6"},
-			new String[] {"2","1","6","0","3","1","0","0","1","1"}
+			new String[] {"青木研","4","2","3","2","1","2","1","1","5","6"},
+			new String[] {"赤岩研","2","1","6","0","3","1","0","0","1","1"}
 		);
 		aWriter.ListtoCSV(testData, testFile);
 		List<String[]> actualData = aWriter.CSVtoList(testFile);
