@@ -74,8 +74,6 @@ public class Laboratory {
 		while (studentList.size() > this.capacity) {
 			studentList.remove(studentList.size() - 1).unAssign();
         }
-		studentList.forEach((student) -> { System.out.printf("%s", student.name()); });
-		System.out.printf("%n");
 		// List<Integer> removedStudentsList = new ArrayList<Integer>();
 		// while (studentList.size() > this.capacity) {
         //     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());

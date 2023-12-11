@@ -171,7 +171,6 @@ public class Reader extends IO {
 				}
 				if (this.table.studentMap().containsKey(studentID)) {
 					this.table.studentMap().get(studentID).setLabRank(labRank);
-					//System.out.printf("%d: %s%n",studentID, labRank.size());
 				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

@@ -8,6 +8,7 @@ public class Example {
 		reader.run();
 		GaleShapleyMatching aGaleShapleyMatching = new GaleShapleyMatching(table);
 		aGaleShapleyMatching.run();
+		System.out.println("ok");
 		Writer aWriter = new Writer(table, null);
 		aWriter.run();
 	}

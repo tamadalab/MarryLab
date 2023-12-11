@@ -129,7 +129,7 @@ public class Table {
 	 */
 	public boolean hasUnassignedStudents(){
 		return this.studentsList.values().stream()
-                            .filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
-                            .allMatch(Student::isAssigned); // その中で全員が配属済みかをチェック
+								.filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
+								.anyMatch(student -> !student.isAssigned()); // 未配属の生徒がいればtrueを返す
 	}
 }
