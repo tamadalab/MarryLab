@@ -19,13 +19,14 @@ public class GaleShapleyMatching {
 
 	public GaleShapleyMatching(Table table) {
 		this.table = table;
+		// 研究室ごとの配属上限を決定する
+		this.table.calculateCapacity();
 	}
 
 	/**
 	 * マッチングアルゴリズムを実行します。
 	 */
 	public void run() {
-		this.table.calculateCapacity();
 		while (!this.table.hasUnassignedStudents()) {
 			this.add(this.table.laboratoryMap(), this.table.studentMap());
 			this.remove(this.table.laboratoryMap(), this.table.studentMap());
@@ -50,15 +51,18 @@ public class GaleShapleyMatching {
 		studentMap.values().stream()
 		          .filter(student -> !student.nulLabRank())
 				  .filter(student -> student.getCurrentLabRank() != null)
-				  .forEach(student -> student.getCurrentLabRank().addStudent(student));
+				  .filter(student -> !student.isAssigned())
+				  .forEach(student -> {
+					Laboratory aLaboratory = student.getCurrentLabRank();
+					aLaboratory.addStudent(student);
+					student.assign(aLaboratory);
+				});
 	}
 
 	/**
 	 * 学生を除名するメソッドです。
 	 */
 	public void remove(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
-		laboratoryMap.forEach((key, laboratory) -> {
-			laboratory.removeStudent();
-		});
+		laboratoryMap.forEach((key, laboratory) -> { laboratory.removeStudent(); });
 	}
 }

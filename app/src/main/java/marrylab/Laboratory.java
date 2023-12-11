@@ -74,6 +74,8 @@ public class Laboratory {
 		while (studentList.size() > this.capacity) {
 			studentList.remove(studentList.size() - 1).unAssign();
         }
+		studentList.forEach((student) -> { System.out.printf("%s", student.name()); });
+		System.out.printf("%n");
 		// List<Integer> removedStudentsList = new ArrayList<Integer>();
 		// while (studentList.size() > this.capacity) {
         //     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
@@ -124,6 +126,10 @@ public class Laboratory {
 		return this.labScore;
 	}
 
+	public int capacity(){
+		return this.capacity;
+	}
+
 	/**
 	 * コース点の設定を行う
 	 * @param coursePoint
@@ -143,6 +149,6 @@ public class Laboratory {
 	 * @param labScore 教員点
 	 */
 	public void setLabScore(Integer studentID, Double labScore) {
-
+		this.labScore.put(studentID, labScore);
 	}
 }

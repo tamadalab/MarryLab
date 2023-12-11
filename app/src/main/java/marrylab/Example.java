@@ -10,10 +10,5 @@ public class Example {
 		aGaleShapleyMatching.run();
 		Writer aWriter = new Writer(table, null);
 		aWriter.run();
-		table.laboratoryMap().forEach((name, lab) -> {
-			lab.studentList().forEach((student) -> {
-				System.out.println(student.name());
-			});
-		});
 	}
 }
