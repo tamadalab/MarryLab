@@ -46,7 +46,7 @@ public class Reader extends IO {
 					Double gpa = Double.parseDouble(column[3]);
 
 					if (Objects.equal("○", column[2])) {
-						this.table.studentMap().put(studentID, new Student(studentName, gpa));
+						this.table.studentMap().put(studentID, new Student(studentID ,studentName, gpa));
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -141,7 +141,9 @@ public class Reader extends IO {
 			try {
 				Integer studentID = Integer.valueOf(labScoreColumn[0]);
 				Double labScore = Double.parseDouble(labScoreColumn[2]);
-				this.table.laboratoryMap().get(labName).setLabScore(studentID, labScore);
+				if(this.table.studentMap().containsKey(studentID)){
+					this.table.laboratoryMap().get(labName).setLabScore(studentID, labScore);
+				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
@@ -163,10 +165,13 @@ public class Reader extends IO {
 				String[] labNameList = column[7].replaceAll("^\\{|\\}$", "")
 						.split("} \\{");
 				for (String labName : labNameList) {
-					labRank.add(this.table.laboratoryMap().get(labName));
+					if(!Objects.equal(labName, null)){
+						labRank.add(this.table.laboratoryMap().get(labName));
+					}
 				}
-				if (!Objects.equal(this.table.studentMap().get(studentID), null)) {
+				if (this.table.studentMap().containsKey(studentID)) {
 					this.table.studentMap().get(studentID).setLabRank(labRank);
+					//System.out.printf("%d: %s%n",studentID, labRank.size());
 				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

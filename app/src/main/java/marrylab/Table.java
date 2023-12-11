@@ -126,6 +126,7 @@ public class Table {
 	 */
 	public boolean hasUnassignedStudents(){
 		return this.studentsList.values().stream()
-		                        .allMatch(Student::isAssigned);
+                            .filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
+                            .allMatch(Student::isAssigned); // その中で全員が配属済みかをチェック
 	}
 }

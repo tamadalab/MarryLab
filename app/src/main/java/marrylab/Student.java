@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+
+import com.google.common.base.Objects;
+import com.google.common.collect.Streams.DoubleFunctionWithIndex;
+
 import java.util.Objects;
 
 import java.util.List;
@@ -54,46 +59,55 @@ public class Student implements Comparable<Student> {
 	private boolean isAssigned;
 
 	/**
+	 * GaleSharpleyアルゴリズムをスキップするためのフラグ
+	 */
+	private boolean skipFlag;
+
+	/**
 	 * コンストラクタ
 	 */
-	public Student(String name, Double GPA) {
+	public Student(Integer ID, String name, Double GPA) {
+		this.studentNumber = ID;
 		this.name = name;
 		this.GPA = GPA;
 		this.myCourse = new ArrayList<Integer>();
 		this.labRank = new ArrayList<Laboratory>();
-		this.currentIndex = 0;
+		this.currentIndex = 1;
+		this.isAssigned = false;
+		this.skipFlag = false;
 	}
 
 	/**
 	 * 点数計算をするメソッド
 	 */
 	public Double calculateScore(Map<Integer, Double> coursePoint, Map<Integer, Double> labScore) {
-		return this.GPA * 12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
+		return this.GPA * 12 + this.searchCoursePoint(coursePoint) + this.searchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまるコース点を返すメソッド
 	 */
-	public Double serchCorsePoint(Map<Integer, Double> coursePoint) {
+	public Double searchCoursePoint(Map<Integer, Double> coursePoint) {
 		// コースが合致して、その中で点数が一番高いコースを返す
-		List<Double> alist = new ArrayList<Double>();
+		Double highestPoint = 0.0;
 		for (Integer course : myCourse) {
 			Double value = coursePoint.get(course);
-			if (value != null) {
-				alist.add(value);
+			if (value != null && (highestPoint == null || value > highestPoint)) {
+				highestPoint = value;
 			}
 		}
-
-		Collections.sort(alist, Collections.reverseOrder());
-
-		return alist.isEmpty() ? null : alist.get(0);
+		return highestPoint;
 	}
+	
 
 	/**
 	 * 当てはまる教員点を返すメソッド
 	 */
-	public Double serchLabScore(Map<Integer, Double> labScore) {
-		return labScore.get(this.studentNumber);
+	public Double searchLabScore(Map<Integer, Double> labScore) {
+		if(labScore.containsKey(studentNumber)){
+			return labScore.get(this.studentNumber);
+		}
+		return 0.0;
 	}
 
 	/**
@@ -102,10 +116,7 @@ public class Student implements Comparable<Student> {
 	 * @return 研究室名
 	 */
 	public String getCurrentLabRank() {
-		if (!Objects.equals(this.labRank.get(currentIndex), null)) {
-			return this.labRank.get(currentIndex).name();
-		}
-		return null;
+		return this.labRank.get(currentIndex - 1).name();
 	}
 
 	/**
@@ -210,7 +221,37 @@ public class Student implements Comparable<Student> {
 	}
 
 	public void setLabRank(List<Laboratory> labRank) {
-		labRank.removeIf(Objects::isNull);
+    labRank.removeIf(Objects::isNull);
 		this.labRank = labRank;
+		if(Objects.equal(labRank.size(), 29)){
+			this.labRank = labRank;
+		}
 	}
+
+	/**
+	 * 研究室希望順位に関しての例外処理を行う
+	 * @return
+	 */
+	public boolean nulLabRank(){
+		if(this.labRank.isEmpty()){
+			this.skipFlag = true;
+			return skipFlag;
+		}
+		if(Objects.equal(this.labRank.get(currentIndex - 1), null)){
+			this.skipFlag = true;
+		}
+		if(this.currentIndex == this.labRank.size()){
+			this.skipFlag = true;
+			return skipFlag;
+		}
+		return this.skipFlag;
+	}
+
+	/**
+	 * アルゴリズム実行されないことを応答する。
+	 * @return
+	 */
+	public boolean getSkipFlag(){
+		return this.skipFlag;
+  }
 }

@@ -26,24 +26,30 @@ public class GaleShapleyMatching {
 	 */
 	public void run() {
 
-		while (true) {
+		while (!this.table.hasUnassignedStudents()) {
 			this.add(this.table.laboratoryMap(), this.table.studentMap());
 			this.remove(this.table.laboratoryMap(), this.table.studentMap());
-			if (this.table.hasUnassignedStudents()) {
-				break;
-			}
 		}
 	}
 
 	/**
+	 * 希望研究室をこれ以上持たない学生に対しアルゴリズムの実行をスキップするフラグを立てるメソッドです。
+	 */
+	public void markNullStudent(){
+		this.table.studentMap().forEach((ID, student) -> {
+			student.nulLabRank();
+		});
+	}
+
+	/**
 	 * 学生を研究室に配属させるメソッドです。
+	 * skipFlagが立っている生徒のアルゴリズムの実装はスキップします。
 	 */
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
-		studentMap.forEach((key, student) -> {
-			if (!Objects.equal(laboratoryMap.get(student.getCurrentLabRank()), null)) {
-				laboratoryMap.get(student.getCurrentLabRank()).addStudent(student);
-			}
-		});
+		studentMap.values().stream()
+		          .filter(student -> !student.nulLabRank())
+				  .filter(student -> laboratoryMap.get(student.getCurrentLabRank()) != null)
+				  .forEach(student -> laboratoryMap.get(student.getCurrentLabRank()).addStudent(student));
 	}
 
 	/**
