@@ -124,6 +124,10 @@ public class Laboratory {
 		return this.labScore;
 	}
 
+	public int capacity(){
+		return this.capacity;
+	}
+
 	/**
 	 * コース点の設定を行う
 	 * @param coursePoint
@@ -143,6 +147,6 @@ public class Laboratory {
 	 * @param labScore 教員点
 	 */
 	public void setLabScore(Integer studentID, Double labScore) {
-
+		this.labScore.put(studentID, labScore);
 	}
 }

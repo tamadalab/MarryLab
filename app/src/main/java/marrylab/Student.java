@@ -140,7 +140,8 @@ public class Student implements Comparable<Student> {
 	 * 
 	 * @return
 	 */
-	public void assign() {
+	public void assign(Laboratory newLaboratory) {
+		this.result = newLaboratory;
 		this.isAssigned = true;
 	}
 
@@ -230,20 +231,17 @@ public class Student implements Comparable<Student> {
 	 * 研究室希望順位に関しての例外処理を行う
 	 * @return
 	 */
-	public boolean nulLabRank(){
-		if(this.labRank.isEmpty()){
-			this.skipFlag = true;
-			return skipFlag;
+	public boolean nulLabRank() {
+		// リストが空の場合、またはcurrentIndexがリストの範囲外の場合
+		if (labRank.isEmpty() || currentIndex < 0 || currentIndex >= labRank.size()) {
+			skipFlag = true;
+		} else {
+			// currentIndexが範囲内の場合、指定されたインデックスの要素がnullかどうかをチェック
+			skipFlag = (labRank.get(currentIndex) == null);
 		}
-		if(Objects.equals(this.labRank.get(currentIndex - 1), null)){
-			this.skipFlag = true;
-		}
-		if(this.currentIndex == this.labRank.size()){
-			this.skipFlag = true;
-			return skipFlag;
-		}
-		return this.skipFlag;
+		return skipFlag;
 	}
+	
 
 	/**
 	 * アルゴリズム実行されないことを応答する。

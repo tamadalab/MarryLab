@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * 研究室と生徒の情報を管理するクラス
@@ -78,7 +79,9 @@ public class Table {
 	public List<String> storeFirstLabRank(){
 		Map<String, Integer> labCounts = new HashMap<>();
 		this.studentsList.forEach((ID, student) -> {
-			labCounts.merge(student.firstLabRank().name(), 1, Integer::sum);
+			if(!Objects.equals(student.firstLabRank(), null)){
+				labCounts.merge(student.firstLabRank().name(), 1, Integer::sum);
+			}
 		});
 		List<String> sortedLabs = labCounts.entrySet().stream()
             .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
@@ -126,7 +129,7 @@ public class Table {
 	 */
 	public boolean hasUnassignedStudents(){
 		return this.studentsList.values().stream()
-                            .filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
-                            .allMatch(Student::isAssigned); // その中で全員が配属済みかをチェック
+								.filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
+								.anyMatch(student -> !student.isAssigned()); // 未配属の生徒がいればtrueを返す
 	}
 }

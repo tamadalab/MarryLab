@@ -8,12 +8,8 @@ public class Example {
 		reader.run();
 		GaleShapleyMatching aGaleShapleyMatching = new GaleShapleyMatching(table);
 		aGaleShapleyMatching.run();
+		System.out.println("ok");
 		Writer aWriter = new Writer(table, null);
 		aWriter.run();
-		table.laboratoryMap().forEach((name, lab) -> {
-			lab.studentList().forEach((student) -> {
-				System.out.println(student.name());
-			});
-		});
 	}
 }
