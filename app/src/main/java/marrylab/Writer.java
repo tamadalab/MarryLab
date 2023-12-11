@@ -22,6 +22,8 @@ public class Writer extends IO {
 		List<String[]> resultList = new ArrayList<>();
 		this.table.studentMap().forEach((ID, student) -> {
 			// ID,生徒名,研究室名,現在の希望順位をStringの配列にしてListに入れる
+			String name = student.name();
+			String resultLab = student.resultLaboratory().name();
 			String[] result = { ID.toString(), student.name(), student.resultLaboratory().name(),
 					String.valueOf(student.currentIndex()) };
 			resultList.add(result);
