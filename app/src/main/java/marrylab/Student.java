@@ -55,14 +55,22 @@ public class Student implements Comparable<Student> {
 	private boolean isAssigned;
 
 	/**
+	 * GaleSharpleyアルゴリズムをスキップするためのフラグ
+	 */
+	private boolean skipFlag;
+
+	/**
 	 * コンストラクタ
 	 */
-	public Student(String name, Double GPA) {
+	public Student(Integer ID, String name, Double GPA) {
+		this.studentNumber = ID;
 		this.name = name;
 		this.GPA = GPA;
 		this.myCourse = new ArrayList<Integer>();
 		this.labRank = new ArrayList<Laboratory>();
-		this.currentIndex = 0;
+		this.currentIndex = 1;
+		this.isAssigned = false;
+		this.skipFlag = false;
 	}
 
 	/**
@@ -103,10 +111,8 @@ public class Student implements Comparable<Student> {
 	 * @return 研究室名
 	 */
 	public String getCurrentLabRank() {
-		if (!Objects.equal(this.labRank.get(currentIndex), null)) {
-			return this.labRank.get(currentIndex).name();
-		}
-		return null;
+		System.out.printf("%d: %d%n", this.studentNumber, this.currentIndex);
+		return this.labRank.get(currentIndex - 1).name();
 	}
 
 	/**
@@ -211,6 +217,15 @@ public class Student implements Comparable<Student> {
 	}
 
 	public void setLabRank(List<Laboratory> labRank) {
-		this.labRank = labRank;
+		if(Objects.equal(labRank.size(), 29)){
+			this.labRank = labRank;
+		}
+	}
+
+	public boolean nulLabRank(){
+		if(Objects.equal(this.labRank.get(currentIndex), null)){
+			this.skipFlag = true;
+		}
+		return this.skipFlag;
 	}
 }

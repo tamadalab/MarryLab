@@ -36,14 +36,22 @@ public class GaleShapleyMatching {
 	}
 
 	/**
+	 * 希望研究室をこれ以上持たない学生に対しアルゴリズムの実行をスキップするフラグを立てるメソッドです。
+	 */
+	public void markNullStudent(){
+		this.table.studentMap().forEach((ID, student) -> {
+			student.nulLabRank();
+		});
+	}
+
+	/**
 	 * 学生を研究室に配属させるメソッドです。
+	 * skipFlagが立っている生徒のアルゴリズムの実装はスキップします。
 	 */
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
-		studentMap.forEach((key, student) -> {
-			if (!Objects.equal(laboratoryMap.get(student.getCurrentLabRank()), null)) {
-				laboratoryMap.get(student.getCurrentLabRank()).addStudent(student);
-			}
-		});
+		studentMap.values().stream()
+		          .filter(student -> !student.nulLabRank())
+				  .forEach(student -> laboratoryMap.get(student.getCurrentLabRank()).addStudent(student));
 	}
 
 	/**
