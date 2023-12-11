@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 import java.util.List;
 
@@ -103,7 +102,7 @@ public class Student implements Comparable<Student> {
 	 * @return 研究室名
 	 */
 	public String getCurrentLabRank() {
-		if (!Objects.equal(this.labRank.get(currentIndex), null)) {
+		if (!Objects.equals(this.labRank.get(currentIndex), null)) {
 			return this.labRank.get(currentIndex).name();
 		}
 		return null;
@@ -211,6 +210,7 @@ public class Student implements Comparable<Student> {
 	}
 
 	public void setLabRank(List<Laboratory> labRank) {
+		labRank.removeIf(Objects::isNull);
 		this.labRank = labRank;
 	}
 }
