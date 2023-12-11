@@ -7,6 +7,8 @@ import java.util.Map;
 
 import java.util.Objects;
 
+import org.w3c.dom.ls.LSException;
+
 import java.util.List;
 
 /**
@@ -111,8 +113,8 @@ public class Student implements Comparable<Student> {
 	 * 
 	 * @return 研究室名
 	 */
-	public String getCurrentLabRank() {
-		return this.labRank.get(currentIndex - 1).name();
+	public Laboratory getCurrentLabRank() {
+		return this.labRank.get(currentIndex - 1);
 	}
 
 	/**
@@ -175,6 +177,9 @@ public class Student implements Comparable<Student> {
 	 * @return 第一希望の研究室
 	 */
 	public Laboratory firstLabRank() {
+		if(this.labRank.isEmpty()){
+			return null;
+		}
 		return this.labRank.get(0);
 	}
 
