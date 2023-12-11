@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Streams.DoubleFunctionWithIndex;
 
@@ -220,6 +221,8 @@ public class Student implements Comparable<Student> {
 	}
 
 	public void setLabRank(List<Laboratory> labRank) {
+    labRank.removeIf(Objects::isNull);
+		this.labRank = labRank;
 		if(Objects.equal(labRank.size(), 29)){
 			this.labRank = labRank;
 		}
@@ -250,5 +253,5 @@ public class Student implements Comparable<Student> {
 	 */
 	public boolean getSkipFlag(){
 		return this.skipFlag;
-	}
+  }
 }
