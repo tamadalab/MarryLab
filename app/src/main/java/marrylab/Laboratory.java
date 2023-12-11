@@ -129,6 +129,8 @@ public class Laboratory {
 		for (int i = 0; i < coursePoint.size(); i++) {
 			// インデックスを1オリジンに変換し、リストの要素をDoubleに変換してMapに格納
 			this.coursePoint.put(i + 1, coursePoint.get(i).doubleValue());
+			// コース選択なし：９９　を0点に設定
+			this.coursePoint.put(99, 0.0);
 		}
 	}
 	

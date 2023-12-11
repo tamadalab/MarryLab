@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Streams.DoubleFunctionWithIndex;
 
 import java.util.List;
 
@@ -77,32 +78,33 @@ public class Student implements Comparable<Student> {
 	 * 点数計算をするメソッド
 	 */
 	public Double calculateScore(Map<Integer, Double> coursePoint, Map<Integer, Double> labScore) {
-		return this.GPA * 12 + this.serchCorsePoint(coursePoint) + this.serchLabScore(labScore);
+		return this.GPA * 12 + this.searchCoursePoint(coursePoint) + this.searchLabScore(labScore);
 	}
 
 	/**
 	 * 当てはまるコース点を返すメソッド
 	 */
-	public Double serchCorsePoint(Map<Integer, Double> coursePoint) {
+	public Double searchCoursePoint(Map<Integer, Double> coursePoint) {
 		// コースが合致して、その中で点数が一番高いコースを返す
-		List<Double> alist = new ArrayList<Double>();
+		Double highestPoint = 0.0;
 		for (Integer course : myCourse) {
 			Double value = coursePoint.get(course);
-			if (value != null) {
-				alist.add(value);
+			if (value != null && (highestPoint == null || value > highestPoint)) {
+				highestPoint = value;
 			}
 		}
-
-		Collections.sort(alist, Collections.reverseOrder());
-
-		return alist.isEmpty() ? null : alist.get(0);
+		return highestPoint;
 	}
+	
 
 	/**
 	 * 当てはまる教員点を返すメソッド
 	 */
-	public Double serchLabScore(Map<Integer, Double> labScore) {
-		return labScore.get(this.studentNumber);
+	public Double searchLabScore(Map<Integer, Double> labScore) {
+		if(labScore.containsKey(studentNumber)){
+			return labScore.get(this.studentNumber);
+		}
+		return 0.0;
 	}
 
 	/**
@@ -111,7 +113,6 @@ public class Student implements Comparable<Student> {
 	 * @return 研究室名
 	 */
 	public String getCurrentLabRank() {
-		System.out.printf("%d: %d%n", this.studentNumber, this.currentIndex);
 		return this.labRank.get(currentIndex - 1).name();
 	}
 
@@ -222,10 +223,30 @@ public class Student implements Comparable<Student> {
 		}
 	}
 
+	/**
+	 * 研究室希望順位に関しての例外処理を行う
+	 * @return
+	 */
 	public boolean nulLabRank(){
-		if(Objects.equal(this.labRank.get(currentIndex), null)){
+		if(this.labRank.isEmpty()){
+			this.skipFlag = true;
+			return skipFlag;
+		}
+		if(Objects.equal(this.labRank.get(currentIndex - 1), null)){
 			this.skipFlag = true;
 		}
+		if(this.currentIndex == this.labRank.size()){
+			this.skipFlag = true;
+			return skipFlag;
+		}
+		return this.skipFlag;
+	}
+
+	/**
+	 * アルゴリズム実行されないことを応答する。
+	 * @return
+	 */
+	public boolean getSkipFlag(){
 		return this.skipFlag;
 	}
 }

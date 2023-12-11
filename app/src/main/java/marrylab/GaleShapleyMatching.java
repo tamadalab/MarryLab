@@ -26,12 +26,9 @@ public class GaleShapleyMatching {
 	 */
 	public void run() {
 
-		while (true) {
+		while (!this.table.hasUnassignedStudents()) {
 			this.add(this.table.laboratoryMap(), this.table.studentMap());
 			this.remove(this.table.laboratoryMap(), this.table.studentMap());
-			if (this.table.hasUnassignedStudents()) {
-				break;
-			}
 		}
 	}
 
@@ -51,6 +48,7 @@ public class GaleShapleyMatching {
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		studentMap.values().stream()
 		          .filter(student -> !student.nulLabRank())
+				  .filter(student -> laboratoryMap.get(student.getCurrentLabRank()) != null)
 				  .forEach(student -> laboratoryMap.get(student.getCurrentLabRank()).addStudent(student));
 	}
 
