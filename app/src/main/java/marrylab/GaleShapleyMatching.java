@@ -25,11 +25,12 @@ public class GaleShapleyMatching {
 	 * マッチングアルゴリズムを実行します。
 	 */
 	public void run() {
-
+		this.table.calculateCapacity();
 		while (!this.table.hasUnassignedStudents()) {
 			this.add(this.table.laboratoryMap(), this.table.studentMap());
 			this.remove(this.table.laboratoryMap(), this.table.studentMap());
 		}
+
 	}
 
 	/**
@@ -48,8 +49,8 @@ public class GaleShapleyMatching {
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		studentMap.values().stream()
 		          .filter(student -> !student.nulLabRank())
-				  .filter(student -> laboratoryMap.get(student.getCurrentLabRank()) != null)
-				  .forEach(student -> laboratoryMap.get(student.getCurrentLabRank()).addStudent(student));
+				  .filter(student -> student.getCurrentLabRank() != null)
+				  .forEach(student -> student.getCurrentLabRank().addStudent(student));
 	}
 
 	/**
@@ -57,9 +58,7 @@ public class GaleShapleyMatching {
 	 */
 	public void remove(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		laboratoryMap.forEach((key, laboratory) -> {
-			laboratory.removeStudent().forEach((studentID) -> {
-				studentMap.get(studentID).unAssign();
-			});
+			laboratory.removeStudent();
 		});
 	}
 }

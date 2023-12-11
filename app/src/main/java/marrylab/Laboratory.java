@@ -69,13 +69,16 @@ public class Laboratory {
 	 * 除名した生徒が持つIDをまとめて応答する。
 	 * @return 除名された生徒のIDリスト
 	 */
-	public List<Integer> removeStudent(){
+	public void removeStudent(){
 		this.sortStudent();
-		List<Integer> removedStudentsList = new ArrayList<Integer>();
 		while (studentList.size() > this.capacity) {
-            removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+			studentList.remove(studentList.size() - 1).unAssign();
         }
-		return removedStudentsList;
+		// List<Integer> removedStudentsList = new ArrayList<Integer>();
+		// while (studentList.size() > this.capacity) {
+        //     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+        // }
+		// return removedStudentsList;
 	}
 
 	/**
