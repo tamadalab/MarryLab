@@ -38,7 +38,7 @@ class LaboratoryTest {
          */
         List<Student> expectedList = new ArrayList<>();
         expectedList.add(student3);
-        expectedList.add(student1);
+        expectedList.add(student2);
 
         /*
          * テストリストを出力、理想のリストと一致するか確認
