@@ -25,7 +25,7 @@ public class StudentTest {
      */
     private Map<Integer, Double> labScores;
 
-    @Before
+    @Test
     public void setup() throws Exception{
     // サンプル学生を初期化し、コースポイントとラボスコアのマップを作成する。
         student = new Student(1,"山田 太郎",3.5);
@@ -40,15 +40,13 @@ public class StudentTest {
         labScores.put(student.studentNumber(), 4.5);
 
         student.setLabRank(List.of(new Laboratory("青木研"), new Laboratory("赤岩研"), new Laboratory("玉田研")));
-    }
 
-    @Test
-    public void testCalculation() {
-        Double Score = 3.5 * 12 + 3.0;
+                Double Score = 3.5 * 12 + 3.0;
 
         Double actualScore = student.calculateScore(coursePoints, labScores);
 
         assertEquals(Score, actualScore, 0.001);
     }
-
 }
+
+
