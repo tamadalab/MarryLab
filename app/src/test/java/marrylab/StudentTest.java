@@ -2,6 +2,7 @@ package marrylab;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class StudentTest {
+
     /**
      * 
      */
@@ -38,8 +40,12 @@ public class StudentTest {
         labScores = new HashMap<>();
         labScores.put(student.studentNumber(), 4.5);
 
-        student.setLabRank(List.of(new Laboratory("青木研"), new Laboratory("赤岩研"), new Laboratory("玉田研")));
+        List<Laboratory> labRankList = new ArrayList<>();
+        labRankList.add(new Laboratory("青木研"));
+        labRankList.add(new Laboratory("赤岩研"));
+        labRankList.add(new Laboratory("玉田研"));
 
+        student.setLabRank(labRankList);
                 Double Score = 3.5 * 12 + 3.0;
 
         Double actualScore = student.calculateScore(coursePoints, labScores);
