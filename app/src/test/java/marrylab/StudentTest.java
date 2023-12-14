@@ -2,12 +2,12 @@ package marrylab;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-import org.juint.Before;
-
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+
+import org.juint.Before;
+import org.junit.jupiter.api.Test;
 
 public class StudentTest {
     /**
@@ -28,7 +28,7 @@ public class StudentTest {
     @Before
     public void setup() throws Exception{
     // サンプル学生を初期化し、コースポイントとラボスコアのマップを作成する。
-        student = new Student("山田 太郎",3.5);
+        student = new Student(1,"山田 太郎",3.5);
         student.setCourse("101:CourseA", "102:CourseB", "103:CourseC");
 
         coursePoints = new HashMap<>();
