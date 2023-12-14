@@ -105,28 +105,35 @@ public class Laboratory {
 	 * @return 研究室名
 	 */
 	public String name(){
-		return this.name;
-	}
+        String ReturnLabName = new String();
+        ReturnLabName = this.name;
+        return ReturnLabName;
+    }
 
-	public Map<Integer, Double> studentPoint(){
-		return this.studentPoint;
-	}
+    public Map<Integer, Double> studentPoint(){
+        Map<Integer, Double> ReturnStudentPoint = new HashMap<Integer, Double>();
+        ReturnStudentPoint = this.studentPoint;
+        return ReturnStudentPoint;
+    }
 
-	public List<Student> studentList(){
-		return this.studentList;
-	}
+    public List<Student> studentList(){
+        List<Student> ReturnStudentList = new ArrayList<Student>();
+        ReturnStudentList = this.studentList;
+        return ReturnStudentList;
+    }
 
-	public Map<Integer, Double> coursePoint(){
-		return this.coursePoint;
-	}
+    public Map<Integer, Double> coursePoint(){
+        Map<Integer, Double> ReturnCoursePoint = new HashMap<Integer, Double>();
+        ReturnCoursePoint = this.coursePoint;
+        return ReturnCoursePoint;
+    }
 
-	public HashMap<Integer, Double> labScore(){
-		return this.labScore;
-	}
+    public HashMap<Integer, Double> labScore(){
+        HashMap<Integer, Double> ReturnLabScore = new HashMap<Integer, Double>();
+        ReturnLabScore = this.labScore;
+        return ReturnLabScore;
+    }
 
-	public int capacity(){
-		return this.capacity;
-	}
 
 	/**
 	 * コース点の設定を行う
