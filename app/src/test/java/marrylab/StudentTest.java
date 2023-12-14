@@ -46,8 +46,7 @@ public class StudentTest {
         labRankList.add(new Laboratory("玉田研"));
 
         student.setLabRank(labRankList);
-        Double Score = 3.5 * 12 + 3.0;
-        Score += 4.5; 
+        Double Score = 3.5 * 12 + 6.0 + 4.5; 
 
         Double actualScore = student.calculateScore(coursePoints, labScores);
 
