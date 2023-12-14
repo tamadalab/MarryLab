@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Objects;
 
-import com.google.common.base.Objects;
+//import com.google.common.base.Objects;
 
 public class Reader extends IO {
 	/**
@@ -16,8 +17,8 @@ public class Reader extends IO {
 	 */
 	private Map<String, String> labScoreMap;
 
-	public Reader(Table table, String filePath) {
-		super(table, filePath);
+	public Reader(Table table) {
+		super(table);
 		this.labScoreMap = new HashMap<>();
 	}
 
@@ -43,9 +44,9 @@ public class Reader extends IO {
 				if (column.length >= 4) {
 					Integer studentID = Integer.valueOf(column[0]);
 					String studentName = column[1];
-					Double gpa = Double.parseDouble(column[3]);
+					Double gpa = Double.valueOf(column[3]);
 
-					if (Objects.equal("○", column[2])) {
+					if (Objects.equals("○", column[2])) {
 						this.table.studentMap().put(studentID, new Student(studentID ,studentName, gpa));
 					}
 				}
@@ -66,7 +67,7 @@ public class Reader extends IO {
 		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				Integer studentID = Integer.valueOf(column[0]);
-				if (!Objects.equal(this.table.studentMap().get(studentID), null)) {
+				if (this.table.studentMap().get(studentID) != null) {
 					this.table.studentMap().get(studentID).setCourse(column[2], column[3], column[4]);
 				}
 			} catch (NumberFormatException e) {
@@ -105,10 +106,10 @@ public class Reader extends IO {
 				List<Integer> coursePoint = Arrays.stream(column)
 						.skip(1)
 						.map(point -> {
-							return Integer.parseInt(point);
+							return Integer.valueOf(point);
 						})
 						.collect(Collectors.toList());
-				if (!Objects.equal(this.table.laboratoryMap().get(labName), null)) {
+				if (this.table.laboratoryMap().get(labName) != null) {
 					this.table.laboratoryMap().get(labName).setCoursePoint(coursePoint);
 				}
 			} catch (NumberFormatException e) {
@@ -140,7 +141,7 @@ public class Reader extends IO {
 		this.CSVtoList(filePath).forEach((labScoreColumn) -> {
 			try {
 				Integer studentID = Integer.valueOf(labScoreColumn[0]);
-				Double labScore = Double.parseDouble(labScoreColumn[2]);
+				Double labScore = Double.valueOf(labScoreColumn[2]);
 				if(this.table.studentMap().containsKey(studentID)){
 					this.table.laboratoryMap().get(labName).setLabScore(studentID, labScore);
 				}
@@ -161,11 +162,11 @@ public class Reader extends IO {
 		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				List<Laboratory> labRank = new ArrayList<Laboratory>();
-				Integer studentID = Integer.parseInt(column[0]);
+				Integer studentID = Integer.valueOf(column[0]);
 				String[] labNameList = column[7].replaceAll("^\\{|\\}$", "")
 						.split("} \\{");
 				for (String labName : labNameList) {
-					if(!Objects.equal(labName, null)){
+					if(labName != null){
 						labRank.add(this.table.laboratoryMap().get(labName));
 					}
 				}
@@ -177,5 +178,4 @@ public class Reader extends IO {
 			}
 		});
 	}
-
 }

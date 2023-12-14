@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Writer extends IO {
-	public Writer(Table table, String filePath) {
-		super(table, filePath);
+	public Writer(Table table) {
+		super(table);
 	}
 
 	public void run() {
@@ -26,13 +26,13 @@ public class Writer extends IO {
 			// ID,生徒名,研究室名,現在の希望順位をStringの配列にしてListに入れる
 			String name = student.name();
 			String resultLab = "";
-			if(!Objects.equals(student.resultLaboratory(), null)){
+			if(student.resultLaboratory() != null){
 				resultLab = student.resultLaboratory().name();
 			}
 			String[] result = { ID.toString(), name, resultLab, String.valueOf(student.currentIndex()) };
 			resultList.add(result);
 		});
-		this.ListtoCSV(resultList, filepath);
+		this.listToCSV(resultList, filepath);
 	}
 
 	public void writeLaboratory(String filepath){
@@ -44,6 +44,6 @@ public class Writer extends IO {
 			String[] resultArray = result.toArray(new String[result.size()]);
 			resultList.add(resultArray);
 		});
-		this.ListtoCSV(resultList, filepath);
+		this.listToCSV(resultList, filepath);
 	}
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 学生の情報を管理するクラス
  */
-public class Student implements Comparable<Student> {
+public class Student {
 
 	/**
 	 * 学生のIDを保持するフィールド
@@ -88,9 +88,9 @@ public class Student implements Comparable<Student> {
 	public Double searchCoursePoint(Map<Integer, Double> coursePoint) {
 		// コースが合致して、その中で点数が一番高いコースを返す
 		Double highestPoint = 0.0;
-		for (Integer course : myCourse) {
+		for (Integer course : this.myCourse) {
 			Double value = coursePoint.get(course);
-			if (value != null && (highestPoint == null || value > highestPoint)) {
+			if (value != null && value > highestPoint) {
 				highestPoint = value;
 			}
 		}
@@ -184,18 +184,6 @@ public class Student implements Comparable<Student> {
 		return this.labRank.get(0);
 	}
 
-	@Override
-	public int compareTo(Student other) {
-		// オブジェクトを比較し、比較結果を返すロジックを実装
-		if (this.GPA < other.GPA) {
-			return -1;
-		} else if (this.GPA > other.GPA) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-
 	public Integer studentNumber() {
 		return this.studentNumber;
 	}
@@ -218,8 +206,8 @@ public class Student implements Comparable<Student> {
 
 	public void setCourse(String course1, String course2, String course3) {
 		this.myCourse.add(Integer.valueOf(course1.split(":")[0], 10));
-		this.myCourse.add(Integer.parseInt(course2.split(":")[0]));
-		this.myCourse.add(Integer.parseInt(course3.split(":")[0]));
+		this.myCourse.add(Integer.valueOf(course2.split(":")[0]));
+		this.myCourse.add(Integer.valueOf(course3.split(":")[0]));
 	}
 
 	public void setLabRank(List<Laboratory> labRank) {
@@ -249,5 +237,5 @@ public class Student implements Comparable<Student> {
 	 */
 	public boolean getSkipFlag(){
 		return this.skipFlag;
-  }
+	}
 }

@@ -20,22 +20,12 @@ public class IO {
 	protected Table table;
 
 	/**
-	 * ファイルパスを保持するフィールドです。
-	 */
-	protected String filePass;
-
-	protected List<String[]> list;
-
-	/**
 	 * コンストラクタ：初期値を設定しておく。
 	 * 
 	 * @param table
-	 * @param filePass
 	 */
-	public IO(Table table, String filePass) {
+	public IO(Table table) {
 		this.table = table;
-		this.filePass = filePass;
-		this.list = new ArrayList<String[]>();
 		return;
 	}
 
@@ -60,7 +50,7 @@ public class IO {
 	 * @param list     振り分けた結果が入っているリスト
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
-	public void ListtoCSV(List<String[]> list, String filePass) {
+	public void listToCSV(List<String[]> list, String filePass) {
 		try {
 			Csv.save(list, new File(filePass), new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {

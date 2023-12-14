@@ -43,8 +43,8 @@ public class GaleShapleyMatching {
 	public void addUnmatchedStudents(Table table){
 		// 未配属の生徒をリストに追加
 		List<Student> unmatchedStudents = table.studentMap().values().stream()
-        .filter(Student::nulLabRank)
-        .collect(Collectors.toList());
+		.filter(Student::nulLabRank)
+		.collect(Collectors.toList());
 		
 		// 未配属の生徒を可能な限り研究室に配属
 		for (Laboratory lab : table.laboratoryMap().values()) {
@@ -53,8 +53,8 @@ public class GaleShapleyMatching {
 				Student unmatchedStudent = unmatchedStudents.remove(0); // 生徒をリストから削除
 				unmatchedStudent.assign(lab); // 生徒に研究室を割り当て
 				lab.addStudent(unmatchedStudent); // 研究室に生徒を追加
-            }
-        }
+			}
+		}
 	}
 
 
@@ -64,7 +64,7 @@ public class GaleShapleyMatching {
 	 */
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		studentMap.values().stream()
-		          .filter(student -> !student.nulLabRank())
+				  .filter(student -> !student.nulLabRank())
 				  .filter(student -> student.getCurrentLabRank() != null)
 				  .filter(student -> !student.isAssigned())
 				  .forEach(student -> {
