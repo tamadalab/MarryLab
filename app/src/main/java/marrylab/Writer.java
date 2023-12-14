@@ -2,14 +2,16 @@ package marrylab;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Writer extends IO {
-	public Writer(Table table, String filePath) {
-		super(table, filePath);
+	public Writer(Table table) {
+		super(table);
 	}
 
 	public void run() {
-		this.write("./src/main/resources/result/result1.csv");
+		this.writeStudent("./src/main/resources/result/result1.csv");
+		this.writeLaboratory("./src/main/resources/result/result2.csv");
 	}
 
 	/**
@@ -18,14 +20,30 @@ public class Writer extends IO {
 	 * @param list     振り分けた結果が入っているリスト
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
-	public void write(String filepath) {
+	public void writeStudent(String filepath) {
 		List<String[]> resultList = new ArrayList<>();
 		this.table.studentMap().forEach((ID, student) -> {
 			// ID,生徒名,研究室名,現在の希望順位をStringの配列にしてListに入れる
-			String[] result = { ID.toString(), student.name(), student.resultLaboratory().name(),
-					String.valueOf(student.currentIndex()) };
+			String name = student.name();
+			String resultLab = "";
+			if(student.resultLaboratory() != null){
+				resultLab = student.resultLaboratory().name();
+			}
+			String[] result = { ID.toString(), name, resultLab, String.valueOf(student.currentIndex()) };
 			resultList.add(result);
 		});
-		this.ListtoCSV(resultList, filepath);
+		this.listToCSV(resultList, filepath);
+	}
+
+	public void writeLaboratory(String filepath){
+		List<String[]> resultList = new ArrayList<>();
+		this.table.laboratoryMap().forEach((name, lab) -> {
+			List<String> result = new ArrayList<>();
+			result.add(name);
+			lab.studentList().stream().forEach(student -> result.add(student.name()));
+			String[] resultArray = result.toArray(new String[result.size()]);
+			resultList.add(resultArray);
+		});
+		this.listToCSV(resultList, filepath);
 	}
 }

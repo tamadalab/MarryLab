@@ -69,13 +69,16 @@ public class Laboratory {
 	 * 除名した生徒が持つIDをまとめて応答する。
 	 * @return 除名された生徒のIDリスト
 	 */
-	public List<Integer> removeStudent(){
+	public void removeStudent(){
 		this.sortStudent();
-		List<Integer> removedStudentsList = new ArrayList<Integer>();
 		while (studentList.size() > this.capacity) {
-            removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+			studentList.remove(studentList.size() - 1).unAssign();
         }
-		return removedStudentsList;
+		// List<Integer> removedStudentsList = new ArrayList<Integer>();
+		// while (studentList.size() > this.capacity) {
+        //     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+        // }
+		// return removedStudentsList;
 	}
 
 	/**
@@ -121,6 +124,10 @@ public class Laboratory {
 		return this.labScore;
 	}
 
+	public int capacity(){
+		return this.capacity;
+	}
+
 	/**
 	 * コース点の設定を行う
 	 * @param coursePoint
@@ -129,6 +136,8 @@ public class Laboratory {
 		for (int i = 0; i < coursePoint.size(); i++) {
 			// インデックスを1オリジンに変換し、リストの要素をDoubleに変換してMapに格納
 			this.coursePoint.put(i + 1, coursePoint.get(i).doubleValue());
+			// コース選択なし：９９　を0点に設定
+			this.coursePoint.put(99, 0.0);
 		}
 	}
 	
@@ -138,6 +147,6 @@ public class Laboratory {
 	 * @param labScore 教員点
 	 */
 	public void setLabScore(Integer studentID, Double labScore) {
-
+		this.labScore.put(studentID, labScore);
 	}
 }
