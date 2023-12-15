@@ -133,8 +133,9 @@ public class Laboratory {
         ReturnLabScore = this.labScore;
         return ReturnLabScore;
     }
-　　　　　　　　public int capacity(){
-	int ReturnCapacity = this.capacity();
+　　　　　　　　public Integer capacity(){
+	Integer ReturnCapacity = new Integer();
+	ReturnCapacity = this.capacity;
 	return ReturnCapacity;
 　　　　　　　　}
 
