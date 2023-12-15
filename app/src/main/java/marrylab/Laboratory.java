@@ -133,6 +133,10 @@ public class Laboratory {
         ReturnLabScore = this.labScore;
         return ReturnLabScore;
     }
+　　　　　　　　public int capacity(){
+	int ReturnCapacity = this.capacity();
+	return ReturnCapacity;
+　　　　　　　　}
 
 
 	/**
