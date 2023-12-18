@@ -1,7 +1,9 @@
 package marrylab;
 
+/**
+ * MarryLabの操作を行うクラスです。
+ */
 public class Example {
-
 	public static void main(String[] arguments) {
 		Table table = new Table();
 		Reader reader = new Reader(table);

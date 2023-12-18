@@ -1,13 +1,13 @@
 package marrylab;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.orangesignal.csv.Csv;
 import com.orangesignal.csv.CsvConfig;
 import com.orangesignal.csv.handlers.StringArrayListHandler;
-
-import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * CSVの入出力を司るクラスです。

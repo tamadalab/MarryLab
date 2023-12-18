@@ -5,11 +5,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-//import com.google.common.base.Objects;
-
+/**
+ * csvファイルを読み込んで操作を行うクラスです。
+ */
 public class Reader extends IO {
 	/**
 	 * 教員点の情報をもつファイルへのパスを保持するMap
@@ -17,11 +18,18 @@ public class Reader extends IO {
 	 */
 	private Map<String, String> labScoreMap;
 
+	/**
+	 * コンストラクタ：初期値を設定しておく。
+	 * @param table 研究室や学生のマップを保持しています。
+	 */
 	public Reader(Table table) {
 		super(table);
 		this.labScoreMap = new HashMap<>();
 	}
 
+	/**
+	 * csvファイルを読み込んで操作を実行します。
+	 */
 	public void run() {
 		this.readStudentGPA("./src/main/resources/data/学業成績(情理)_2023.csv");
 		this.readStudentCourse("./src/main/resources/data/コース選択.csv");
@@ -32,10 +40,10 @@ public class Reader extends IO {
 	}
 
 	/**
-	 * 学業成績.xlsxを読み込み、履修可能な生徒のみStudentのインスタンスを作成する。
+	 * 学業成績.csvを読み込み、履修可能な生徒のみStudentのインスタンスを作成する。
 	 * 生徒ID,氏名,特別研究１履修可否,通算GPA
 	 * 
-	 * @param filePath ファイルパス
+	 * @param filePath csvのファイルパス
 	 */
 	public void readStudentGPA(String filePath) {
 		this.CSVtoList(filePath).forEach((column) -> {
@@ -58,10 +66,10 @@ public class Reader extends IO {
 	}
 
 	/**
-	 * コース選択.xlsxを読み込み、Studentのフィールドに情報を保存する。
+	 * コース選択.csvを読み込み、Studentのフィールドに情報を保存する。
 	 * 生徒ID,氏名,第一希望,第二希望,第三希望
 	 * 
-	 * @param filePath
+	 * @param filePath csvのファイルパス
 	 */
 	public void readStudentCourse(String filePath) {
 		this.CSVtoList(filePath).forEach((column) -> {
@@ -80,7 +88,7 @@ public class Reader extends IO {
 	 * 教員点ファイルパス.csvを読み込み、フィールドのlabScoreMapに保存する。
 	 * 研究室名,LabSvcoreのファイルパス
 	 * 
-	 * @param filePath
+	 * @param filePath csvのファイルパス
 	 */
 	public void readLabScoreMap(String filePath) {
 		this.CSVtoList(filePath).forEach((column) -> {
@@ -96,7 +104,7 @@ public class Reader extends IO {
 	 * コース点.csvを読み込み、コース点をLabratoryにそれぞれ保持させる。
 	 * 研究室名,各コースの点数,...
 	 * 
-	 * @param filePath
+	 * @param filePath csvのファイルパス
 	 */
 	public void readCoursePoint(String filePath) {
 		this.CSVtoList(filePath).forEach((column) -> {
@@ -135,7 +143,8 @@ public class Reader extends IO {
 	 * 生徒ID,氏名,教員点（0~24）
 	 * 研究室ごとにファイルが存在する。
 	 * 
-	 * @param filePath
+	 * @param labName 研究室名
+	 * @param filePath csvのファイルパス
 	 */
 	public void readLabScore(String labName, String filePath) {
 		this.CSVtoList(filePath).forEach((labScoreColumn) -> {
@@ -156,7 +165,7 @@ public class Reader extends IO {
 	 * 生徒ID,氏名,回答の状態,開始日時,受験完了日時,所要時間,評点,回答
 	 * 生徒によって複数回答ある場合があるので、受験完了日時が最新の情報を参照する。
 	 * 
-	 * @param filePath
+	 * @param filePath csvのファイルパス
 	 */
 	public void readLabRank(String filePath) {
 		this.CSVtoList(filePath).forEach((column) -> {

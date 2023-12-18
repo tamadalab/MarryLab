@@ -1,13 +1,7 @@
 package marrylab;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.common.base.Objects;
-
 import java.util.List;
-import java.util.ArrayList;
-
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +13,10 @@ public class GaleShapleyMatching {
 	 */
 	private Table table;
 
+	/**
+	 * コンストラクタ：初期値を設定しておく
+	 * @param table
+	 */
 	public GaleShapleyMatching(Table table) {
 		this.table = table;
 		// 研究室ごとの配属上限を決定する
@@ -37,8 +35,26 @@ public class GaleShapleyMatching {
 	}
 
 	/**
+	 * 学生を研究室に配属させるメソッドです。
+	 * skipFlagが立っている生徒のアルゴリズムの実装はスキップします。
+	 * @param laboratoryMap 研究室に関するマップです。
+	 * @param studentMap 学生に関するマップです。
+	 */
+	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
+		studentMap.values().stream()
+				  .filter(student -> !student.nulLabRank())
+				  .filter(student -> student.getCurrentLabRank() != null)
+				  .filter(student -> !student.isAssigned())
+				  .forEach(student -> {
+					Laboratory aLaboratory = student.getCurrentLabRank();
+					aLaboratory.addStudent(student);
+					student.assign(aLaboratory);
+				});
+	}
+
+	/**
 	 * GaleSharpleyアルゴリズムを実行できなかった生徒をランダムに配属する
-	 * @param table
+	 * @param table 研究室と学生のマップ情報を保持しています。
 	 */
 	public void addUnmatchedStudents(Table table){
 		// 未配属の生徒をリストに追加
@@ -57,25 +73,10 @@ public class GaleShapleyMatching {
 		}
 	}
 
-
-	/**
-	 * 学生を研究室に配属させるメソッドです。
-	 * skipFlagが立っている生徒のアルゴリズムの実装はスキップします。
-	 */
-	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
-		studentMap.values().stream()
-				  .filter(student -> !student.nulLabRank())
-				  .filter(student -> student.getCurrentLabRank() != null)
-				  .filter(student -> !student.isAssigned())
-				  .forEach(student -> {
-					Laboratory aLaboratory = student.getCurrentLabRank();
-					aLaboratory.addStudent(student);
-					student.assign(aLaboratory);
-				});
-	}
-
 	/**
 	 * 学生を除名するメソッドです。
+	 * @param laboratoryMap 研究室に関するマップです。
+	 * @param studentMap 学生に関するマップです。
 	 */
 	public void remove(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		laboratoryMap.forEach((key, laboratory) -> { laboratory.removeStudent(); });

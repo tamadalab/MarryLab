@@ -1,12 +1,9 @@
 package marrylab;
 
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Map;
 
 /**
  * 研究室に関する情報を管理するクラス
@@ -14,13 +11,7 @@ import java.util.Comparator;
 public class Laboratory {
 
 	/**
-	 * 生徒の総合点を管理するマップを保持するフィールド。
-	 * キー：生徒ID バリュー：総合点
-	 */
-	private Map<Integer, Double> studentPoint;
-
-	/**
-	 * 生徒の希望順位を保持するフィールド
+	 * 学生の配属情報を保持するフィールド
 	 */
 	private List<Student> studentList;
 
@@ -46,14 +37,14 @@ public class Laboratory {
 
 	/**
 	 * 研究室のコンストラクタ
+	 * @param name 研究室名
 	 */
 	public Laboratory(String name){
-		this.studentPoint = new HashMap<>();
-		this.studentList = new ArrayList<>();
+		this.capacity = 0;
 		this.coursePoint = new HashMap<>();
 		this.labScore = new HashMap<>();
-		this.capacity = 0;
 		this.name = name;
+		this.studentList = new ArrayList<>();
 	}
 
 	/**
@@ -73,11 +64,11 @@ public class Laboratory {
 		this.sortStudent();
 		while (studentList.size() > this.capacity) {
 			studentList.remove(studentList.size() - 1).unAssign();
-        }
+		}
 		// List<Integer> removedStudentsList = new ArrayList<Integer>();
 		// while (studentList.size() > this.capacity) {
-        //     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
-        // }
+		//     removedStudentsList.add(studentList.remove(studentList.size() - 1).studentNumber());
+		// }
 		// return removedStudentsList;
 	}
 
@@ -93,11 +84,10 @@ public class Laboratory {
 	 */
 	public void sortStudent() {
 		studentList.sort((s1, s2) -> {
-            double score1 = s1.calculateScore(this.coursePoint, this.labScore);
-            double score2 = s2.calculateScore(this.coursePoint, this.labScore);
-            return Double.compare(score2, score1); // 高いスコア順にソート
-        });
-		//Collections.sort(studentList);
+			double score1 = s1.calculateScore(this.coursePoint, this.labScore);
+			double score2 = s2.calculateScore(this.coursePoint, this.labScore);
+			return Double.compare(score2, score1); // 高いスコア順にソート
+		});
 	}
 
 	/**
@@ -105,35 +95,45 @@ public class Laboratory {
 	 * @return 研究室名
 	 */
 	public String name(){
-        String ReturnLabName = new String();
-        ReturnLabName = this.name;
-        return ReturnLabName;
-    }
+		String ReturnLabName = new String();
+		ReturnLabName = this.name;
+		return ReturnLabName;
+	}
 
-    public Map<Integer, Double> studentPoint(){
-        Map<Integer, Double> ReturnStudentPoint = new HashMap<Integer, Double>();
-        ReturnStudentPoint = this.studentPoint;
-        return ReturnStudentPoint;
-    }
+	/**
+	 * 学生の配属情報を返すメソッドです。
+	 * @return 学生の配属情報を返します。
+	 */
+	public List<Student> studentList(){
+		List<Student> ReturnStudentList = new ArrayList<Student>();
+		ReturnStudentList = this.studentList;
+		return ReturnStudentList;
+	}
 
-    public List<Student> studentList(){
-        List<Student> ReturnStudentList = new ArrayList<Student>();
-        ReturnStudentList = this.studentList;
-        return ReturnStudentList;
-    }
+	/**
+	 * コース点を返すメソッドです。
+	 * @return コース点の情報を返します。
+	 */
+	public Map<Integer, Double> coursePoint(){
+		Map<Integer, Double> ReturnCoursePoint = new HashMap<Integer, Double>();
+		ReturnCoursePoint = this.coursePoint;
+		return ReturnCoursePoint;
+	}
 
-    public Map<Integer, Double> coursePoint(){
-        Map<Integer, Double> ReturnCoursePoint = new HashMap<Integer, Double>();
-        ReturnCoursePoint = this.coursePoint;
-        return ReturnCoursePoint;
-    }
+	/**
+	 * 教員点を返すメソッドです。
+	 * @return 教員点の情報を返します。
+	 */
+	public HashMap<Integer, Double> labScore(){
+		HashMap<Integer, Double> ReturnLabScore = new HashMap<Integer, Double>();
+		ReturnLabScore = this.labScore;
+		return ReturnLabScore;
+	}
 
-    public HashMap<Integer, Double> labScore(){
-        HashMap<Integer, Double> ReturnLabScore = new HashMap<Integer, Double>();
-        ReturnLabScore = this.labScore;
-        return ReturnLabScore;
-    }
-
+	/**
+	 * 研究室のキャパシティを返すメソッドです。
+	 * @return 研究室のキャパシティの情報を返します。
+	 */
 	public int capacity(){
 		int ReturnCapacity = this.capacity;
 		return ReturnCapacity;
@@ -141,7 +141,7 @@ public class Laboratory {
 
 	/**
 	 * コース点の設定を行う
-	 * @param coursePoint
+	 * @param coursePoint 各研究室のコース点を保持するリスト
 	 */
 	public void setCoursePoint(List<Integer> coursePoint){
 		for (int i = 0; i < coursePoint.size(); i++) {
