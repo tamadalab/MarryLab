@@ -34,8 +34,14 @@ public class IO {
 	 */
 	public List<String[]> CSVtoList(String filePass) {
 		List<String[]> resultList = new ArrayList<String[]>();
+		File inputFile = new File(filePass);
+		// ファイルが存在しない場合のエラー処理
+		if(!inputFile.exists()){ 
+			System.out.printf("%sを用意してください。%n", filePass);
+			System.exit(1);
+		}
 		try {
-			resultList = Csv.load(new File(filePass),
+			resultList = Csv.load(inputFile,
 					new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -51,8 +57,17 @@ public class IO {
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
 	public void listToCSV(List<String[]> list, String filePass) {
+		File outputFile = new File(filePass);
+		if(!outputFile.exists()){
+			try {
+				outputFile.getParentFile().mkdirs();
+				outputFile.createNewFile();
+			} catch (IOException e) {
+				return;
+			}
+		}
 		try {
-			Csv.save(list, new File(filePass), new CsvConfig(), new StringArrayListHandler());
+			Csv.save(list, outputFile, new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

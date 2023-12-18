@@ -15,8 +15,8 @@ public class Writer extends IO {
 	 * csvファイルの書き出しを実行します。
 	 */
 	public void run() {
-		this.writeStudent("./src/main/resources/result/result1.csv");
-		this.writeLaboratory("./src/main/resources/result/result2.csv");
+		this.writeStudent("./result/result1.csv");
+		this.writeLaboratory("./result/result2.csv");
 	}
 
 	/**

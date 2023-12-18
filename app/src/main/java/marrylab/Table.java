@@ -52,10 +52,11 @@ public class Table {
 	 * 研究室の最大配属人数を計算する
 	 */
 	public void calculateCapacity(){
+		// 生徒数を研究室数で割り、商をcapacityとする。余った分だけ人気順にインクリメント
 		for (Laboratory lab : this.laboratoryList.values()) {
 			lab.updateCapacity(this.getQuotientOfStudentsAndLabs());
 		}
-		// 余りのぶんだけ人気の研究室順でcapacityを＋１する。
+		// 余りのぶんだけ人気の研究室順でcapacityをインクリメント。
 		this.storeFirstLabRank().stream()
             .limit(this.getRemainderOfStudentsAndLabs())
             .forEach(labname -> {
@@ -115,7 +116,7 @@ public class Table {
 	
 	/**
 	 * 生徒全員が配属済かどうかを応答する。
-	 * 配属済ならば、trueを返す
+	 * 未配属ならば、trueを返す
 	 * @return 真偽値
 	 */
 	public boolean hasUnassignedStudents(){

@@ -5,9 +5,14 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.4/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+import org.gradle.api.tasks.bundling.Zip
+
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    java
+    distribution
 }
 
 repositories {
@@ -35,6 +40,35 @@ java {
     }
 }
 
+
+
+distributions {
+    main {
+        contents {
+            from(tasks.named<Jar>("jar")) {
+                into("libs")
+            }
+            from("src/main/resources") {
+                into("resources")
+            }
+            // 他の必要なファイルやディレクトリをここに追加
+        }
+    }
+}
+
+tasks.register<Zip>("zip") {
+    group = "distribution"
+    description = "Creates a zip of the project."
+
+    from(".") // プロジェクトのルートディレクトリからファイルを選択
+    include("src/**", "build.gradle.kts", "README.md") // 必要なファイルやディレクトリを指定
+    exclude("build/", ".gradle/", ".idea/", "*.iml") // 除外するファイルやディレクトリを指定
+
+    archiveFileName.set("MarryLab.zip") // ZIPファイルの名前
+    destinationDirectory.set(file("build/distributions")) // ZIPファイルの出力先
+}
+
+
 application {
     // Define the main class for the application.
     mainClass.set("marrylab.Example")
@@ -44,3 +78,12 @@ tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+tasks.named<Jar>("jar") {
+    manifest {
+        attributes["Main-Class"] = "marrylab.Example"
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+}
+
+
