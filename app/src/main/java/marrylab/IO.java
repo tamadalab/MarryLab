@@ -66,7 +66,6 @@ public class IO {
 				return;
 			}
 		}
-
 		try {
 			Csv.save(list, outputFile, new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {

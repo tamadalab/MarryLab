@@ -1,11 +1,9 @@
 package marrylab;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * 研究室と生徒の情報を管理するクラス
@@ -23,18 +21,11 @@ public class Table {
 	private Map<Integer, Student> studentsList;
 
 	/**
-	 * 研究室第一希望のみを持つリスト
-	 */
-	private List<String> firstLabRank;
-
-
-	/**
 	 * コンストラクタ
 	 */
 	public Table(){
 		this.laboratoryList = new HashMap<String, Laboratory>();
 		this.studentsList = new HashMap<Integer, Student>();
-		this.firstLabRank = new ArrayList<String>();
 	}
 
 	
@@ -80,7 +71,7 @@ public class Table {
 	public List<String> storeFirstLabRank(){
 		Map<String, Integer> labCounts = new HashMap<>();
 		this.studentsList.forEach((ID, student) -> {
-			if(!Objects.equals(student.firstLabRank(), null)){
+			if(student.firstLabRank() != null){
 				labCounts.merge(student.firstLabRank().name(), 1, Integer::sum);
 			}
 		});

@@ -3,55 +3,9 @@
  */
 package marrylab;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.io.IOException;
-import java.util.List;
-
 /*class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
 }*/
-
-class ReaderTest {
-	//@Test
-	public void testReader() throws IOException {
-		Reader aReader = new Reader(new Table(), null);
-		String input = "readerTest.csv";
-		List<String[]> expectedData = List.of(
-			new String[] {"列1","ネットワークシステム","情報セキュリティ","データサイエンス","ロボットインタラクション","コンピュータ基盤設計","組込みシステム","デジタルファブリケーション","脳科学","メディア処理技術","情報システム"},
-			new String[] {"青木研","4","2","3","2","1","2","1","1","5","6"},
-			new String[] {"赤岩研","2","1","6","0","3","1","0","0","1","1"}
-		);
-		List<String[]> actualData = aReader.CSVtoList(input);
-		assertNotNull(actualData);
-		for(int i = 0; i < actualData.size(); i++) {
-			assertArrayEquals(expectedData.get(i), actualData.get(i));
-		}
-	}
-}
-
-/**
- * AppTest
- */
-class WriteTest { 
-	//@Test
-	public void testWriter() throws IOException {
-		Writer aWriter = new Writer(new Table(), null);
-		String testFile = "writerTest.csv";
-		List<String[]> testData = List.of(
-			new String[] {"列1","ネットワークシステム","情報セキュリティ","データサイエンス","ロボットインタラクション","コンピュータ基盤設計","組込みシステム","デジタルファブリケーション","脳科学","メディア処理技術","情報システム"},
-			new String[] {"青木研","4","2","3","2","1","2","1","1","5","6"},
-			new String[] {"赤岩研","2","1","6","0","3","1","0","0","1","1"}
-		);
-		aWriter.ListtoCSV(testData, testFile);
-		List<String[]> actualData = aWriter.CSVtoList(testFile);
-		assertEquals(testData, actualData);
-	}
-}
