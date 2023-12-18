@@ -1,11 +1,9 @@
 package marrylab;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * 研究室と生徒の情報を管理するクラス

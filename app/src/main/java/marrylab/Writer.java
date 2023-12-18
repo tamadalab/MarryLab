@@ -2,23 +2,28 @@ package marrylab;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * 学生の研究室の配属結果をcsvファイルで書き出すクラスです。
+ */
 public class Writer extends IO {
 	public Writer(Table table) {
 		super(table);
 	}
 
+	/**
+	 * csvファイルの書き出しを実行します。
+	 */
 	public void run() {
 		this.writeStudent("./src/main/resources/result/result1.csv");
 		this.writeLaboratory("./src/main/resources/result/result2.csv");
 	}
 
 	/**
-	 * CSVファイルを書き出すメソッドです。
+	 * 学生の研究室の配属結果のCSVファイルを書き出すメソッドです。
 	 * 
 	 * @param list     振り分けた結果が入っているリスト
-	 * @param filePass 出力したいCSVファイルのパス
+	 * @param filepath 出力したいCSVファイルのパス
 	 */
 	public void writeStudent(String filepath) {
 		List<String[]> resultList = new ArrayList<>();
@@ -35,6 +40,10 @@ public class Writer extends IO {
 		this.listToCSV(resultList, filepath);
 	}
 
+	/**
+	 * 研究室のメンバーのcsvファイルを書き出すメソッドです。
+	 * @param filepath 出力したいcsvファイルパス
+	 */
 	public void writeLaboratory(String filepath){
 		List<String[]> resultList = new ArrayList<>();
 		this.table.laboratoryMap().forEach((name, lab) -> {

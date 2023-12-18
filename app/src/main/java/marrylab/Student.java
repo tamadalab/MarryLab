@@ -1,15 +1,9 @@
 package marrylab;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.util.Objects;
-
-import org.w3c.dom.ls.LSException;
-
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 学生の情報を管理するクラス
