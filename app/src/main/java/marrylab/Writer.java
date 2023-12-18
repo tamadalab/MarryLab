@@ -2,23 +2,28 @@ package marrylab;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * 学生の研究室の配属結果をcsvファイルで書き出すクラスです。
+ */
 public class Writer extends IO {
-	public Writer(Table table, String filePath) {
-		super(table, filePath);
-	}
-
-	public void run() {
-		this.writeStudent("./src/main/resources/result/result1.csv");
-		this.writeLaboratory("./src/main/resources/result/result2.csv");
+	public Writer(Table table) {
+		super(table);
 	}
 
 	/**
-	 * CSVファイルを書き出すメソッドです。
+	 * csvファイルの書き出しを実行します。
+	 */
+	public void run() {
+		this.writeStudent("./result/result1.csv");
+		this.writeLaboratory("./result/result2.csv");
+	}
+
+	/**
+	 * 学生の研究室の配属結果のCSVファイルを書き出すメソッドです。
 	 * 
 	 * @param list     振り分けた結果が入っているリスト
-	 * @param filePass 出力したいCSVファイルのパス
+	 * @param filepath 出力したいCSVファイルのパス
 	 */
 	public void writeStudent(String filepath) {
 		List<String[]> resultList = new ArrayList<>();
@@ -26,15 +31,19 @@ public class Writer extends IO {
 			// ID,生徒名,研究室名,現在の希望順位をStringの配列にしてListに入れる
 			String name = student.name();
 			String resultLab = "";
-			if(!Objects.equals(student.resultLaboratory(), null)){
+			if(student.resultLaboratory() != null){
 				resultLab = student.resultLaboratory().name();
 			}
 			String[] result = { ID.toString(), name, resultLab, String.valueOf(student.currentIndex()) };
 			resultList.add(result);
 		});
-		this.ListtoCSV(resultList, filepath);
+		this.listToCSV(resultList, filepath);
 	}
 
+	/**
+	 * 研究室のメンバーのcsvファイルを書き出すメソッドです。
+	 * @param filepath 出力したいcsvファイルパス
+	 */
 	public void writeLaboratory(String filepath){
 		List<String[]> resultList = new ArrayList<>();
 		this.table.laboratoryMap().forEach((name, lab) -> {
@@ -44,6 +53,6 @@ public class Writer extends IO {
 			String[] resultArray = result.toArray(new String[result.size()]);
 			resultList.add(resultArray);
 		});
-		this.ListtoCSV(resultList, filepath);
+		this.listToCSV(resultList, filepath);
 	}
 }

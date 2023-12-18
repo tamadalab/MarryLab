@@ -1,13 +1,13 @@
 package marrylab;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.orangesignal.csv.Csv;
 import com.orangesignal.csv.CsvConfig;
 import com.orangesignal.csv.handlers.StringArrayListHandler;
-
-import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * CSVの入出力を司るクラスです。
@@ -20,22 +20,12 @@ public class IO {
 	protected Table table;
 
 	/**
-	 * ファイルパスを保持するフィールドです。
-	 */
-	protected String filePass;
-
-	protected List<String[]> list;
-
-	/**
 	 * コンストラクタ：初期値を設定しておく。
 	 * 
 	 * @param table
-	 * @param filePass
 	 */
-	public IO(Table table, String filePass) {
+	public IO(Table table) {
 		this.table = table;
-		this.filePass = filePass;
-		this.list = new ArrayList<String[]>();
 		return;
 	}
 
@@ -44,8 +34,14 @@ public class IO {
 	 */
 	public List<String[]> CSVtoList(String filePass) {
 		List<String[]> resultList = new ArrayList<String[]>();
+		File inputFile = new File(filePass);
+		// ファイルが存在しない場合のエラー処理
+		if(!inputFile.exists()){ 
+			System.out.printf("%sを用意してください。%n", filePass);
+			System.exit(1);
+		}
 		try {
-			resultList = Csv.load(new File(filePass),
+			resultList = Csv.load(inputFile,
 					new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -60,9 +56,19 @@ public class IO {
 	 * @param list     振り分けた結果が入っているリスト
 	 * @param filePass 出力したいCSVファイルのパス
 	 */
-	public void ListtoCSV(List<String[]> list, String filePass) {
+	public void listToCSV(List<String[]> list, String filePass) {
+		File outputFile = new File(filePass);
+		if(!outputFile.exists()){
+			try {
+				outputFile.getParentFile().mkdirs();
+				outputFile.createNewFile();
+			} catch (IOException e) {
+				return;
+			}
+		}
+
 		try {
-			Csv.save(list, new File(filePass), new CsvConfig(), new StringArrayListHandler());
+			Csv.save(list, outputFile, new CsvConfig(), new StringArrayListHandler());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
