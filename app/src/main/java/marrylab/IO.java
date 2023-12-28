@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
 import com.orangesignal.csv.Csv;
 import com.orangesignal.csv.CsvConfig;
 import com.orangesignal.csv.handlers.StringArrayListHandler;
@@ -73,5 +75,30 @@ public class IO {
 		}
 
 		return;
+	}
+
+	public String getFilePass(String title){
+		JFileChooser fileChooser = new JFileChooser();
+		// ダイアログのタイトルを設定
+        fileChooser.setDialogTitle(title);
+
+        // 選択ボタンのテキストを設定
+        fileChooser.setApproveButtonText("選択");
+
+		// ダイアログを表示し、ユーザーにファイルを選択させる
+        int result = fileChooser.showOpenDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // 選択されたファイルのパスを取得
+            String filePath = selectedFile.getAbsolutePath();
+			return filePath;
+            // ここでファイルパスを使用してファイルを読み込む
+            // 例: loadFile(filePath);
+        } else {
+            System.out.println("ファイル選択がキャンセルされました。");
+			System.exit(1);
+			return null;
+        }
 	}
 }
