@@ -93,8 +93,6 @@ public class IO {
             // 選択されたファイルのパスを取得
             String filePath = selectedFile.getAbsolutePath();
 			return filePath;
-            // ここでファイルパスを使用してファイルを読み込む
-            // 例: loadFile(filePath);
         } else {
             System.out.println("ファイル選択がキャンセルされました。");
 			System.exit(1);

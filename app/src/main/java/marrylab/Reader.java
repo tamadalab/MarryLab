@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import com.google.gson.Gson;
+import java.io.FileReader;
+
 
 /**
  * csvファイルを読み込んで操作を行うクラスです。
@@ -19,24 +22,51 @@ public class Reader extends IO {
 	private Map<String, String> labScoreMap;
 
 	/**
+	 * jsonで設定した各ファイルのファイルパスを保持するMap
+	 * キー：実行メソッドを指定するキーワード, バリュー：ファイルパス
+	 */
+	private Map<String, String> filesMap;
+
+	/**
 	 * コンストラクタ：初期値を設定しておく。
 	 * @param table 研究室や学生のマップを保持しています。
 	 */
 	public Reader(Table table) {
 		super(table);
 		this.labScoreMap = new HashMap<>();
+		this.filesMap = new HashMap<>();
 	}
 
 	/**
 	 * csvファイルを読み込んで操作を実行します。
 	 */
 	public void run() {
-		this.readStudentGPA();
-		this.readStudentCourse();
-		this.readLabScoreMap();
-		this.readCoursePoint();
+		try {
+            // JSONファイルを読み込む
+            FileReader reader = new FileReader(this.getFilePass("files.jsonを選択してください。"));
+
+            // Gsonを使用してJSONをパースする
+            Gson gson = new Gson();
+            Map<?, ?> map = gson.fromJson(reader, Map.class);
+            List<Map<String, Object>> files = (List<Map<String, Object>>) map.get("files");
+
+            // 各ファイルのパスを指定された方法で読み込む
+            for (Map<String, Object> fileData : files) {
+                String path = (String) fileData.get("path");
+                String method = (String) fileData.get("method");
+
+                this.filesMap.put(method, path);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+		this.readStudentGPA(this.filesMap.get("StudentGPA"));
+		this.readStudentCourse(this.filesMap.get("StudentCourse"));
+		this.readLabScoreMap(this.filesMap.get("LabScore"));
+		this.readCoursePoint(this.filesMap.get("CoursePoint"));
 		this.readLabScore();
-		this.readLabRank();
+		this.readLabRank(this.filesMap.get("LabRank"));
 	}
 
 	/**
@@ -45,9 +75,9 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readStudentGPA() {
+	public void readStudentGPA(String filePath) {
 		
-		this.CSVtoList(this.getFilePass("学業成績.csvを読み込んでください。")).forEach((column) -> {
+		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				// column配列の長さを確認
 				if (column.length >= 4) {
@@ -72,8 +102,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readStudentCourse() {
-		this.CSVtoList(this.getFilePass("コース選択.csvを読み込んでください。")).forEach((column) -> {
+	public void readStudentCourse(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				Integer studentID = Integer.valueOf(column[0]);
 				if (this.table.studentMap().get(studentID) != null) {
@@ -91,8 +121,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readLabScoreMap() {
-		this.CSVtoList(this.getFilePass("教員点ファイルパス.csvを読み込んでください。")).forEach((column) -> {
+	public void readLabScoreMap(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				this.labScoreMap.put(column[0], column[1]);
 			} catch (NumberFormatException e) {
@@ -107,8 +137,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readCoursePoint() {
-		this.CSVtoList(this.getFilePass("コース点.csvを読み込んでください。")).forEach((column) -> {
+	public void readCoursePoint(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				String labName = column[0];
 				// コース点を整数型に変換し、リストに追加
@@ -168,8 +198,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readLabRank() {
-		this.CSVtoList(this.getFilePass("研究室配属希望調査.csvを読み込んでください。")).forEach((column) -> {
+	public void readLabRank(String filePath) {
+		this.CSVtoList(filePath).forEach((column) -> {
 			try {
 				List<Laboratory> labRank = new ArrayList<Laboratory>();
 				Integer studentID = Integer.valueOf(column[0]);

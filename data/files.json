@@ -1,0 +1,24 @@
+{
+    "files": [
+      {
+        "path": "./src/main/resources/data/学業成績(情理)_2023.csv",
+        "method": "StudentGPA"
+      },
+      {
+        "path": "./src/main/resources/data/コース選択.csv",
+        "method": "StudentCourse"
+      },
+      {
+        "path": "./src/main/resources/data/20230308 コース点.csv",
+        "method": "CoursePoint"
+      },
+      {
+        "path": "./src/main/resources/data/教員点ファイルパス.csv",
+        "method": "LabScore"
+      },
+      {
+        "path": "./src/main/resources/data/研究室配属希望調査_2023.csv",
+        "method": "LabRank"
+      }
+    ]
+  }
