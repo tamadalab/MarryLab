@@ -31,12 +31,12 @@ public class Reader extends IO {
 	 * csvファイルを読み込んで操作を実行します。
 	 */
 	public void run() {
-		this.readStudentGPA("./src/main/resources/data/学業成績(情理)_2023.csv");
-		this.readStudentCourse("./src/main/resources/data/コース選択.csv");
-		this.readLabScoreMap("./src/main/resources/data/教員点ファイルパス.csv");
-		this.readCoursePoint("./src/main/resources/data/20230308 コース点.csv");
+		this.readStudentGPA();
+		this.readStudentCourse();
+		this.readLabScoreMap();
+		this.readCoursePoint();
 		this.readLabScore();
-		this.readLabRank("./src/main/resources/data/研究室配属希望調査_2023.csv");
+		this.readLabRank();
 	}
 
 	/**
@@ -45,8 +45,9 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readStudentGPA(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
+	public void readStudentGPA() {
+		
+		this.CSVtoList(this.getFilePass("学業成績.csvを読み込んでください。")).forEach((column) -> {
 			try {
 				// column配列の長さを確認
 				if (column.length >= 4) {
@@ -71,8 +72,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readStudentCourse(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
+	public void readStudentCourse() {
+		this.CSVtoList(this.getFilePass("コース選択.csvを読み込んでください。")).forEach((column) -> {
 			try {
 				Integer studentID = Integer.valueOf(column[0]);
 				if (this.table.studentMap().get(studentID) != null) {
@@ -90,8 +91,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readLabScoreMap(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
+	public void readLabScoreMap() {
+		this.CSVtoList(this.getFilePass("教員点ファイルパス.csvを読み込んでください。")).forEach((column) -> {
 			try {
 				this.labScoreMap.put(column[0], column[1]);
 			} catch (NumberFormatException e) {
@@ -106,8 +107,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readCoursePoint(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
+	public void readCoursePoint() {
+		this.CSVtoList(this.getFilePass("コース点.csvを読み込んでください。")).forEach((column) -> {
 			try {
 				String labName = column[0];
 				// コース点を整数型に変換し、リストに追加
@@ -167,8 +168,8 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readLabRank(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
+	public void readLabRank() {
+		this.CSVtoList(this.getFilePass("研究室配属希望調査.csvを読み込んでください。")).forEach((column) -> {
 			try {
 				List<Laboratory> labRank = new ArrayList<Laboratory>();
 				Integer studentID = Integer.valueOf(column[0]);
