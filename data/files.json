@@ -1,24 +1,142 @@
 {
     "files": [
-      {
-        "path": "./src/main/resources/data/学業成績(情理)_2023.csv",
-        "method": "StudentGPA"
-      },
-      {
-        "path": "./src/main/resources/data/コース選択.csv",
-        "method": "StudentCourse"
-      },
-      {
-        "path": "./src/main/resources/data/20230308 コース点.csv",
-        "method": "CoursePoint"
-      },
-      {
-        "path": "./src/main/resources/data/教員点ファイルパス.csv",
-        "method": "LabScore"
-      },
-      {
-        "path": "./src/main/resources/data/研究室配属希望調査_2023.csv",
-        "method": "LabRank"
-      }
+        {
+            "path": "./src/main/resources/data/学業成績(情理)_2023.csv",
+            "method": "StudentGPA"
+        },
+        {
+            "path": "./src/main/resources/data/コース選択.csv",
+            "method": "StudentCourse"
+        },
+        {
+            "path": "./src/main/resources/data/20230308 コース点.csv",
+            "method": "CoursePoint"
+        },
+        {
+            "path": "./src/main/resources/data/教員点ファイルパス.csv",
+            "method": "LabScore"
+        },
+        {
+            "path": "./src/main/resources/data/研究室配属希望調査_2023.csv",
+            "method": "LabRank"
+        }
+    ],
+    "lab_score": [
+        {
+            "lab_name":"安田研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(安田研).csv"
+        },
+        {
+            "lab_name":"伊藤（慎）研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(伊藤（慎）研).csv"
+        },
+        {
+            "lab_name":"伊藤（浩）研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(伊藤（浩）研).csv"
+        },
+        {
+            "lab_name":"井上研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(井上研).csv"
+        },
+        {
+            "lab_name":"永谷研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(永谷研).csv"
+        },
+        {
+            "lab_name":"奥田研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(奥田研).csv"
+        },
+        {
+            "lab_name":"荻原研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(荻原研).csv"
+        },
+        {
+            "lab_name":"荻野研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(荻野研).csv"
+        },
+        {
+            "lab_name":"河合研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(河合研).csv"
+        },
+        {
+            "lab_name":"蚊野研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(蚊野研).csv"
+        },
+        {
+            "lab_name":"吉村研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(吉村研).csv"
+        },
+        {
+            "lab_name":"宮森研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(宮森研).csv"
+        },
+        {
+            "lab_name":"玉田研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(玉田研).csv"
+        },
+        {
+            "lab_name":"秋山研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(秋山研).csv"
+        },
+        {
+            "lab_name":"小林（和）研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(小林（和）研).csv"
+        },
+        {
+            "lab_name":"小林（聡）研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(小林（聡）研).csv"
+        },
+        {
+            "lab_name":"新實研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(新實研).csv"
+        },
+        {
+            "lab_name":"水口研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(水口研).csv"
+        },
+        {
+            "lab_name":"瀬川研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(瀬川研).csv"
+        },
+        {
+            "lab_name":"青木研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(青木研).csv"
+        },
+        {
+            "lab_name":"赤岩研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(赤岩研).csv"
+        },
+        {
+            "lab_name":"赤崎研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(赤崎研).csv"
+        },
+        {
+            "lab_name":"川村研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(川村研).csv"
+        },
+        {
+            "lab_name":"大本研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(大本研).csv"
+        },
+        {
+            "lab_name":"中島研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(中島研).csv"
+        },
+        {
+            "lab_name":"田中研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(田中研).csv"
+        },
+        {
+            "lab_name":"棟方研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(棟方研).csv"
+        },
+        {
+            "lab_name":"平井研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(平井研).csv"
+        },
+        {
+            "lab_name":"林原研",
+            "path":"./src/main/resources/data/Lab_Score/Lab_Score_(林原研).csv"
+        }
     ]
-  }
+}

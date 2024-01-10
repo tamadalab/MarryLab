@@ -1,5 +1,7 @@
 package marrylab;
 
+import com.google.gson.Gson;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import com.google.gson.Gson;
-import java.io.FileReader;
 
 
 /**
@@ -35,12 +35,26 @@ public class Reader extends IO {
 		super(table);
 		this.labScoreMap = new HashMap<>();
 		this.filesMap = new HashMap<>();
+		this.readJson();
 	}
 
 	/**
 	 * csvファイルを読み込んで操作を実行します。
 	 */
 	public void run() {
+		this.readStudentGPA(this.filesMap.get("StudentGPA"));
+		this.readStudentCourse(this.filesMap.get("StudentCourse"));
+		//this.readLabScoreMap(this.filesMap.get("LabScore"));
+		this.readCoursePoint(this.filesMap.get("CoursePoint"));
+		this.readLabScore();
+		this.readLabRank(this.filesMap.get("LabRank"));
+	}
+
+
+	/**
+	 * 入力ファイル設定用のJSONファイルを読み込む
+	 */
+	public void readJson(){
 		try {
             // JSONファイルを読み込む
             FileReader reader = new FileReader(this.getFilePass("files.jsonを選択してください。"));
@@ -49,24 +63,26 @@ public class Reader extends IO {
             Gson gson = new Gson();
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             List<Map<String, Object>> files = (List<Map<String, Object>>) map.get("files");
+			List<Map<String, Object>> labScoreFiles = (List<Map<String, Object>>) map.get("lab_score");
 
-            // 各ファイルのパスを指定された方法で読み込む
-            for (Map<String, Object> fileData : files) {
+			this.readFilePath(files);
+			this.readLabScoreMap(labScoreFiles);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+
+	/**
+	 * 各ファイルのパスを読み込む。
+	 * @param files　ファイルパスについての情報
+	 */
+	public void readFilePath(List<Map<String, Object>> files){
+		for (Map<String, Object> fileData : files) {
                 String path = (String) fileData.get("path");
                 String method = (String) fileData.get("method");
 
                 this.filesMap.put(method, path);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-		this.readStudentGPA(this.filesMap.get("StudentGPA"));
-		this.readStudentCourse(this.filesMap.get("StudentCourse"));
-		this.readLabScoreMap(this.filesMap.get("LabScore"));
-		this.readCoursePoint(this.filesMap.get("CoursePoint"));
-		this.readLabScore();
-		this.readLabRank(this.filesMap.get("LabRank"));
 	}
 
 	/**
@@ -121,14 +137,20 @@ public class Reader extends IO {
 	 * 
 	 * @param filePath csvのファイルパス
 	 */
-	public void readLabScoreMap(String filePath) {
-		this.CSVtoList(filePath).forEach((column) -> {
-			try {
-				this.labScoreMap.put(column[0], column[1]);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			}
-		});
+	public void readLabScoreMap(List<Map<String, Object>> files) {
+		for (Map<String, Object> fileData : files) {
+                String path = (String) fileData.get("path");
+                String labName = (String) fileData.get("lab_name");
+
+                this.labScoreMap.put(labName, path);
+            }
+		// this.CSVtoList(filePath).forEach((column) -> {
+		// 	try {
+		// 		this.labScoreMap.put(column[0], column[1]);
+		// 	} catch (NumberFormatException e) {
+		// 		e.printStackTrace();
+		// 	}
+		// });
 	}
 
 	/**
