@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
 
-
 /**
  * CSVの入出力を司るクラスです。
  */
@@ -37,7 +36,7 @@ public class IO {
 		List<String[]> resultList = new ArrayList<String[]>();
 		File inputFile = new File(filePass);
 		// ファイルが存在しない場合のエラー処理
-		if(!inputFile.exists()){ 
+		if (!inputFile.exists()) {
 			System.out.printf("%sを用意してください。%n", filePass);
 			System.exit(1);
 		}
@@ -59,7 +58,7 @@ public class IO {
 	 */
 	public void listToCSV(List<String[]> list, String filePass) {
 		File outputFile = new File(filePass);
-		if(!outputFile.exists()){
+		if (!outputFile.exists()) {
 			try {
 				outputFile.getParentFile().mkdirs();
 				outputFile.createNewFile();
@@ -78,29 +77,30 @@ public class IO {
 
 	/**
 	 * GUI画面で設定用JSONファイルを選択するメソッドです。
-	 * @param title　選択画面で表示するメッセージ
-	 * @return　filePath　JSONファイルのパス
+	 * 
+	 * @param title 選択画面で表示するメッセージ
+	 * @return filePath JSONファイルのパス
 	 */
-	public String getFilePass(String title){
+	public String getFilePass(String title) {
 		JFileChooser fileChooser = new JFileChooser();
 		// ダイアログのタイトルを設定
-        fileChooser.setDialogTitle(title);
+		fileChooser.setDialogTitle(title);
 
-        // 選択ボタンのテキストを設定
-        fileChooser.setApproveButtonText("選択");
+		// 選択ボタンのテキストを設定
+		fileChooser.setApproveButtonText("選択");
 
 		// ダイアログを表示し、ユーザーにファイルを選択させる
-        int result = fileChooser.showOpenDialog(null);
+		int result = fileChooser.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+			File selectedFile = fileChooser.getSelectedFile();
 
-            // 選択されたファイルのパスを取得
-            String filePath = selectedFile.getAbsolutePath();
+			// 選択されたファイルのパスを取得
+			String filePath = selectedFile.getAbsolutePath();
 			return filePath;
-        } else {
-            System.out.println("ファイル選択がキャンセルされました。");
+		} else {
+			System.out.println("ファイル選択がキャンセルされました。");
 			System.exit(1);
 			return null;
-        }
+		}
 	}
 }

@@ -15,6 +15,7 @@ public class GaleShapleyMatching {
 
 	/**
 	 * コンストラクタ：初期値を設定しておく
+	 * 
 	 * @param table
 	 */
 	public GaleShapleyMatching(Table table) {
@@ -38,8 +39,9 @@ public class GaleShapleyMatching {
 	/**
 	 * 学生を研究室に配属させるメソッドです。
 	 * skipFlagが立っている生徒のアルゴリズムの実装はスキップします。
+	 * 
 	 * @param laboratoryMap 研究室に関するマップです。
-	 * @param studentMap 学生に関するマップです。
+	 * @param studentMap    学生に関するマップです。
 	 */
 	public void add(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
 		studentMap.values().stream()
@@ -55,14 +57,15 @@ public class GaleShapleyMatching {
 
 	/**
 	 * GaleSharpleyアルゴリズムを実行できなかった生徒をランダムに配属する
+	 * 
 	 * @param table 研究室と学生のマップ情報を保持しています。
 	 */
-	public void addUnmatchedStudents(Table table){
+	public void addUnmatchedStudents(Table table) {
 		// 未配属の生徒をリストに追加
 		List<Student> unmatchedStudents = table.studentMap().values().stream()
-		.filter(Student::nulLabRank)
-		.collect(Collectors.toList());
-		
+											   .filter(Student::nulLabRank)
+											   .collect(Collectors.toList());
+
 		// 未配属の生徒を可能な限り研究室に配属
 		for (Laboratory lab : table.laboratoryMap().values()) {
 			// 研究室のキャパシティに余裕がある限り、生徒を配属
@@ -76,10 +79,13 @@ public class GaleShapleyMatching {
 
 	/**
 	 * 学生を除名するメソッドです。
+	 * 
 	 * @param laboratoryMap 研究室に関するマップです。
-	 * @param studentMap 学生に関するマップです。
+	 * @param studentMap    学生に関するマップです。
 	 */
 	public void remove(Map<String, Laboratory> laboratoryMap, Map<Integer, Student> studentMap) {
-		laboratoryMap.forEach((key, laboratory) -> { laboratory.removeStudent(); });
+		laboratoryMap.forEach((key, laboratory) -> {
+			laboratory.removeStudent();
+		});
 	}
 }
