@@ -8,10 +8,11 @@ public class Example {
 		Table table = new Table();
 		Reader reader = new Reader(table);
 		reader.run();
+		System.out.println("ファイルを読み込みました。");
 		GaleShapleyMatching aGaleShapleyMatching = new GaleShapleyMatching(table);
 		aGaleShapleyMatching.run();
-		System.out.println("ok");
 		Writer aWriter = new Writer(table);
 		aWriter.run();
+		System.out.println("結果の出力が完了しました。");
 	}
 }

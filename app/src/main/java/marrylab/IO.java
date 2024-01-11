@@ -1,15 +1,14 @@
 package marrylab;
 
+import com.orangesignal.csv.Csv;
+import com.orangesignal.csv.CsvConfig;
+import com.orangesignal.csv.handlers.StringArrayListHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JFileChooser;
 
-import com.orangesignal.csv.Csv;
-import com.orangesignal.csv.CsvConfig;
-import com.orangesignal.csv.handlers.StringArrayListHandler;
 
 /**
  * CSVの入出力を司るクラスです。
@@ -77,6 +76,11 @@ public class IO {
 		return;
 	}
 
+	/**
+	 * GUI画面で設定用JSONファイルを選択するメソッドです。
+	 * @param title　選択画面で表示するメッセージ
+	 * @return　filePath　JSONファイルのパス
+	 */
 	public String getFilePass(String title){
 		JFileChooser fileChooser = new JFileChooser();
 		// ダイアログのタイトルを設定

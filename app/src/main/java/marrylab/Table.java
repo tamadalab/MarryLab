@@ -1,9 +1,11 @@
 package marrylab;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 
 /**
  * 研究室と生徒の情報を管理するクラス
@@ -21,11 +23,23 @@ public class Table {
 	private Map<Integer, Student> studentsList;
 
 	/**
+	 * フォーマットを行うための研究室リスト
+	 */
+	private List<Laboratory> labRankList;
+
+	/**
+	 * フォーマットを行うためのフラグ
+	 */
+	private boolean formatFlag;
+
+	/**
 	 * コンストラクタ
 	 */
 	public Table(){
 		this.laboratoryList = new HashMap<String, Laboratory>();
 		this.studentsList = new HashMap<Integer, Student>();
+		this.labRankList = new ArrayList<>();
+		this.formatFlag = false;
 	}
 
 	
@@ -83,6 +97,13 @@ public class Table {
 	}
 
 	/**
+	 * Tableの整形を行うかどうかのフラグを設定するメソッドです。
+	 */
+	public void formatFlag(){
+		this.formatFlag = true;
+	}
+
+	/**
 	 * 生徒の数を研究室数で割った商を応答
 	 * @return 商
 	 */
@@ -113,6 +134,14 @@ public class Table {
 	public Map<String, Laboratory> laboratoryMap(){
 		return this.laboratoryList;
 	}
+
+	/**
+	 * 研究室を順序付きで保持する。
+	 * @param labName 研究室名
+	 */
+	public void setLabRankList(String labName){
+		this.labRankList.add(this.laboratoryList.get(labName));
+	}
 	
 	/**
 	 * 生徒全員が配属済かどうかを応答する。
@@ -123,5 +152,33 @@ public class Table {
 		return this.studentsList.values().stream()
 								.filter(student -> !student.getSkipFlag()) // skipFlagがfalseの生徒だけを対象にする
 								.anyMatch(student -> !student.isAssigned()); // 未配属の生徒がいればtrueを返す
+	}
+
+	/**
+	 * formatFlagが立っている時の処理
+	 */
+	public void format(){
+		if (formatFlag) { 
+			this.studentsList.forEach((ID, student) -> {
+				if (this.labRankList.size() == student.labRank().size()) {
+					this.fillLabRank(student);
+				}
+			});
+		}
+	}
+
+	/**
+	 * StudentのLabRankを埋める。
+	 */
+	public void fillLabRank(Student aStudent){
+		List<Laboratory> fillLabRank = new ArrayList<Laboratory>();
+		fillLabRank = aStudent.labRank();
+		// StudentのLabRankに該当の研究室が存在しない場合、追加する。
+		for(Laboratory lab : this.labRankList){
+			if(!aStudent.labRank().contains(lab)){ fillLabRank.add(lab); }
+		}
+
+		// StudentのLabRankとして再設定。
+		aStudent.setLabRank(fillLabRank);
 	}
 }
