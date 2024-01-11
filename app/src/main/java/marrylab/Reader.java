@@ -44,7 +44,6 @@ public class Reader extends IO {
 	public void run() {
 		this.readStudentGPA(this.filesMap.get("StudentGPA"));
 		this.readStudentCourse(this.filesMap.get("StudentCourse"));
-		//this.readLabScoreMap(this.filesMap.get("LabScore"));
 		this.readCoursePoint(this.filesMap.get("CoursePoint"));
 		this.readLabScore();
 		this.readLabRank(this.filesMap.get("LabRank"));
@@ -64,9 +63,12 @@ public class Reader extends IO {
             Map<?, ?> map = gson.fromJson(reader, Map.class);
             List<Map<String, Object>> files = (List<Map<String, Object>>) map.get("files");
 			List<Map<String, Object>> labScoreFiles = (List<Map<String, Object>>) map.get("lab_score");
+			List<Map<String, Object>> settingData = (List<Map<String, Object>>) map.get("setting");
+
 
 			this.readFilePath(files);
 			this.readLabScoreMap(labScoreFiles);
+			this.setupParameters(settingData);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,6 +85,13 @@ public class Reader extends IO {
 
                 this.filesMap.put(method, path);
             }
+	}
+
+	public void setupParameters(List<Map<String, Object>> settingData){
+		for (Map<String, Object> Data : settingData) {
+                boolean formatFlag = (boolean) Data.get("format");
+				if (formatFlag) { this.table.formatFlag(); }
+        }
 	}
 
 	/**
@@ -144,13 +153,6 @@ public class Reader extends IO {
 
                 this.labScoreMap.put(labName, path);
             }
-		// this.CSVtoList(filePath).forEach((column) -> {
-		// 	try {
-		// 		this.labScoreMap.put(column[0], column[1]);
-		// 	} catch (NumberFormatException e) {
-		// 		e.printStackTrace();
-		// 	}
-		// });
 	}
 
 	/**
@@ -172,6 +174,7 @@ public class Reader extends IO {
 						.collect(Collectors.toList());
 				if (this.table.laboratoryMap().get(labName) != null) {
 					this.table.laboratoryMap().get(labName).setCoursePoint(coursePoint);
+					this.table.setLabRankList(labName);
 				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();

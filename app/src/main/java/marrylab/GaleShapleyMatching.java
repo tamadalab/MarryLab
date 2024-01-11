@@ -21,6 +21,7 @@ public class GaleShapleyMatching {
 		this.table = table;
 		// 研究室ごとの配属上限を決定する
 		this.table.calculateCapacity();
+		this.table.format();
 	}
 
 	/**
