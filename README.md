@@ -1,5 +1,7 @@
 # MarryLab
 
+![ML](image/ML.png)
+
 ## 概要
 
 Javaを用いた研究室配属システム
